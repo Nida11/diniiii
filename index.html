@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>🌻 Happy Birthday Dinii 🌻</title>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
@@ -26,7 +26,6 @@
     .opening-sub { color:var(--sunflower); font-size:13px; margin-top:12px; animation:blinkText 2s ease-in-out infinite; letter-spacing:1px; }
     @keyframes blinkText { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
 
-    /* ===== FLOATING ===== */
     .petals-container, .butterflies-container { position:fixed; inset:0; pointer-events:none; z-index:5; }
     .petal { position:absolute; top:-30px; font-size:18px; animation:petalFall linear forwards; opacity:0.8; }
     @keyframes petalFall { 0%{transform:translateY(0) rotate(0) translateX(0); opacity:0.9;} 25%{transform:translateY(25vh) rotate(90deg) translateX(20px);} 50%{transform:translateY(50vh) rotate(180deg) translateX(-20px);} 75%{transform:translateY(75vh) rotate(270deg) translateX(20px);} 100%{transform:translateY(110vh) rotate(360deg) translateX(0); opacity:0;} }
@@ -36,14 +35,12 @@
     #main { display:none; opacity:0; transition:opacity 1s ease; }
     #main.show { display:block; opacity:1; }
 
-    /* ===== HERO (PAPER STYLE, NYATU SAMA ILUSTRASI) ===== */
     .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--paper); position:relative; overflow:hidden; text-align:center; padding:60px 20px 40px; }
     .hero::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='0.06'/></feComponentTransfer></filter><rect width='140' height='140' filter='url(%23n)'/></svg>"); pointer-events:none; z-index:1; }
     .hero > * { position:relative; z-index:2; }
     .hero-sunflower-deco { position:absolute; font-size:50px; opacity:0.22; animation:sway 4s ease-in-out infinite; }
     @keyframes sway { 0%,100%{transform:rotate(-5deg);} 50%{transform:rotate(5deg);} }
 
-    /* Art card: ilustrasi menyatu seperti di kertas */
     .art-card { position:relative; width:min(320px, 82vw); margin:0 auto 25px; cursor:pointer; animation:floatArt 5s ease-in-out infinite; }
     @keyframes floatArt { 0%,100%{transform:rotate(-1.5deg) translateY(0);} 50%{transform:rotate(0.5deg) translateY(-9px);} }
     .art-card img { width:100%; display:block; background:var(--paper); }
@@ -67,7 +64,6 @@
     .section-title { font-family:'Dancing Script',cursive; font-size:clamp(30px,6vw,42px); text-align:center; margin-bottom:12px; }
     .section-sub { text-align:center; color:#9a8866; font-size:13px; margin-bottom:45px; letter-spacing:1px; }
 
-    /* ===== COUNTDOWN ===== */
     .countdown-sec { padding:70px 20px; background:linear-gradient(135deg,var(--maroon-deep),var(--maroon),var(--maroon-dark)); position:relative; overflow:hidden; }
     .countdown-sec::before { content:'🌻'; position:absolute; top:20px; left:20px; font-size:40px; opacity:0.15; }
     .countdown-sec::after { content:'🦋'; position:absolute; bottom:20px; right:20px; font-size:40px; opacity:0.15; }
@@ -78,7 +74,6 @@
     .cd-num { font-size:42px; font-weight:700; color:var(--sunflower); display:block; line-height:1; text-shadow:0 0 20px rgba(255,195,11,0.4); }
     .cd-label { font-size:11px; color:var(--cream); text-transform:uppercase; letter-spacing:2px; margin-top:8px; display:block; }
 
-    /* ===== SORRY + HUG ===== */
     .sorry-sec { padding:70px 20px; background:linear-gradient(180deg,#FBEED5,var(--cream)); text-align:center; }
     .sorry-sec .section-title { color:var(--maroon-dark); }
     .sorry-text { max-width:520px; margin:0 auto 40px; color:#6b5335; font-size:15px; line-height:1.9; font-style:italic; }
@@ -89,7 +84,6 @@
     .hug-msg { margin-top:28px; font-family:'Dancing Script',cursive; font-size:26px; color:var(--maroon); min-height:36px; opacity:0; transition:opacity .8s; }
     .hug-msg.show { opacity:1; }
 
-    /* ===== OCTOBER WISH ===== */
     .oct-sec { padding:70px 20px; background:linear-gradient(135deg,var(--maroon-deep),var(--maroon)); text-align:center; }
     .oct-sec .section-title { color:var(--sunflower); }
     .oct-sec .section-sub { color:rgba(255,248,231,0.6); }
@@ -103,7 +97,6 @@
     .wish-confirm { margin-top:18px; color:var(--sunflower); font-family:'Dancing Script',cursive; font-size:22px; opacity:0; transition:opacity .6s; min-height:30px; }
     .wish-confirm.show { opacity:1; }
 
-    /* ===== FOOD PICKER ===== */
     .food-sec { padding:70px 20px; background:linear-gradient(180deg,var(--cream),#FDF3E0); }
     .food-sec .section-title { color:var(--maroon-dark); }
     .food-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:20px; max-width:700px; margin:0 auto; }
@@ -132,7 +125,6 @@
     .deal-msg { margin-top:15px; color:var(--sunflower); font-family:'Dancing Script',cursive; font-size:22px; opacity:0; transition:opacity 0.5s ease; }
     .deal-msg.show { opacity:1; }
 
-    /* ===== BANDUNG PLANNER ===== */
     .bdg-sec { padding:70px 20px; background:linear-gradient(180deg,#FDF3E0,var(--cream)); }
     .bdg-sec .section-title { color:var(--maroon-dark); }
     .step-label { text-align:center; font-weight:700; color:var(--maroon); margin:35px 0 18px; font-size:14px; letter-spacing:1px; }
@@ -161,7 +153,6 @@
     .trip-places { margin:8px 0 4px; padding-left:20px; font-size:13px; color:#5a4630; line-height:1.9; }
     .trip-summary .wa-btn { display:inline-block; margin-top:18px; }
 
-    /* ===== SPIN WHEEL ===== */
     .wheel-sec { padding:70px 20px; background:linear-gradient(180deg,var(--cream),#FDF3E0); text-align:center; overflow:hidden; }
     .wheel-sec .section-title { color:var(--maroon-dark); }
     .wheel-wrap { position:relative; width:260px; height:260px; margin:0 auto; }
@@ -175,7 +166,29 @@
     .wheel-result { margin-top:25px; font-family:'Dancing Script',cursive; font-size:28px; color:var(--maroon); min-height:40px; opacity:0; transform:translateY(15px); transition:all 0.6s ease; }
     .wheel-result.show { opacity:1; transform:translateY(0); }
 
-    /* ===== SCRATCH ===== */
+    /* ===== CATCH GAME ===== */
+    .game-sec { padding:70px 20px; background:linear-gradient(180deg,#FDF3E0,var(--cream)); text-align:center; }
+    .game-sec .section-title { color:var(--maroon-dark); }
+    .game-area { position:relative; width:100%; max-width:500px; height:380px; margin:0 auto; background:linear-gradient(180deg, #FFF8E7 0%, #FBEED5 100%); border-radius:24px; border:3px solid var(--gold); overflow:hidden; box-shadow:0 15px 40px rgba(107,31,42,.15); touch-action:none; user-select:none; -webkit-user-select:none; }
+    .game-area::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='0.04'/></feComponentTransfer></filter><rect width='100' height='100' filter='url(%23n)'/></svg>"); pointer-events:none; opacity:.5; }
+    .game-hud { position:absolute; top:0; left:0; right:0; padding:12px 18px; display:flex; justify-content:space-between; align-items:center; background:rgba(107,31,42,.9); color:var(--sunflower); font-weight:700; font-size:14px; z-index:10; letter-spacing:1px; }
+    .game-hud span { display:flex; align-items:center; gap:6px; }
+    .game-target { position:absolute; font-size:34px; cursor:pointer; user-select:none; -webkit-user-select:none; touch-action:manipulation; transition:transform .1s; z-index:5; filter:drop-shadow(0 3px 6px rgba(0,0,0,.2)); }
+    .game-target:active { transform:scale(.7); }
+    .game-target.caught { animation:caughtPop .4s ease forwards; pointer-events:none; }
+    @keyframes caughtPop { 0%{transform:scale(1); opacity:1;} 50%{transform:scale(1.6); opacity:.8;} 100%{transform:scale(0); opacity:0;} }
+    .game-overlay { position:absolute; inset:0; background:rgba(53,8,16,.85); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:20; padding:20px; text-align:center; backdrop-filter:blur(4px); }
+    .game-overlay.hidden { display:none; }
+    .game-overlay h3 { font-family:'Dancing Script',cursive; font-size:32px; color:var(--sunflower); margin-bottom:10px; }
+    .game-overlay p { color:var(--cream); font-size:14px; line-height:1.7; margin-bottom:8px; max-width:320px; }
+    .game-score-big { font-size:54px; font-weight:700; color:var(--sunflower); margin:10px 0; text-shadow:0 0 20px rgba(255,195,11,.5); }
+    .game-msg { font-family:'Dancing Script',cursive; font-size:22px; color:var(--cream); margin:12px 0 18px; line-height:1.5; }
+    .game-btn { padding:14px 38px; background:linear-gradient(135deg,var(--gold),var(--sunflower)); color:var(--maroon-dark); border:none; border-radius:50px; font-family:'Poppins',sans-serif; font-weight:700; font-size:15px; cursor:pointer; transition:all .3s; box-shadow:0 5px 20px rgba(212,160,23,.4); }
+    .game-btn:hover { transform:translateY(-3px) scale(1.05); }
+    .game-btn.secondary { background:transparent; border:2px solid var(--sunflower); color:var(--sunflower); margin-top:10px; box-shadow:none; }
+    .float-score { position:absolute; font-weight:700; font-size:20px; color:var(--maroon); pointer-events:none; z-index:15; animation:floatUp .8s ease forwards; }
+    @keyframes floatUp { 0%{transform:translateY(0); opacity:1;} 100%{transform:translateY(-50px); opacity:0;} }
+
     .scratch-sec { padding:70px 20px; background:linear-gradient(180deg,#FDF3E0,var(--cream)); }
     .scratch-sec .section-title { color:var(--maroon-dark); }
     .scratch-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; max-width:700px; margin:0 auto; }
@@ -185,7 +198,6 @@
     .scratch-content p { font-size:13px; color:var(--maroon-dark); line-height:1.6; }
     .scratch-canvas { position:absolute; inset:0; border-radius:18px; touch-action:none; }
 
-    /* ===== LETTER ===== */
     .letter-sec { padding:70px 20px; background:linear-gradient(135deg,var(--maroon-deep),var(--maroon)); position:relative; overflow:hidden; }
     .letter-sec .section-title { color:var(--sunflower); }
     .letter-box { max-width:580px; margin:0 auto; background:var(--paper); border-radius:20px; padding:40px 30px; box-shadow:0 25px 60px rgba(0,0,0,0.4); position:relative; }
@@ -197,7 +209,6 @@
     .letter-sign { text-align:right; font-family:'Dancing Script',cursive; font-size:26px; color:var(--maroon); margin-top:20px; opacity:0; transition:opacity 1s ease; }
     .letter-sign.show { opacity:1; }
 
-    /* ===== WISH ===== */
     .wish-sec { padding:70px 20px; background:linear-gradient(180deg,var(--cream),#FBEED5); text-align:center; overflow:hidden; }
     .wish-sec .section-title { color:var(--maroon-dark); }
     .wish-btn { margin-top:10px; padding:18px 45px; background:linear-gradient(135deg,var(--maroon),var(--maroon-dark)); color:var(--sunflower); border:2px solid var(--gold); border-radius:60px; font-family:'Poppins',sans-serif; font-size:16px; font-weight:600; cursor:pointer; transition:all 0.3s ease; box-shadow:0 8px 30px rgba(107,31,42,0.3); }
@@ -232,6 +243,7 @@
         .cd-num { font-size:32px; }
         .wheel-wrap { width:220px; height:220px; }
         .place-grid { grid-template-columns:repeat(2,1fr); }
+        .game-area { height:340px; }
     }
 </style>
 </head>
@@ -256,12 +268,11 @@
         <span class="hero-sunflower-deco" style="bottom:15%; left:10%; animation-delay:0.5s;">🌻</span>
         <span class="hero-sunflower-deco" style="bottom:20%; right:6%; animation-delay:1.5s;">🌻</span>
 
-        <!-- ILUSTRASI DINI (simpan gambar sebagai dini.png di folder yang sama) -->
         <div class="art-card" onclick="tapPortrait()">
             <div class="art-tape"></div>
             <div class="speech-bubble" id="speech-bubble"></div>
-<img src="https://nida11.github.io/diniiii/images/ilustrasi-dini.png" alt="Ilustrasi Dini"
-     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">            <div class="art-fallback">🧕🏻🌻</div>
+            <img src="https://nida11.github.io/diniiii/images/ilustrasi-dini.png" alt="Ilustrasi Dini" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="art-fallback">🧕🏻🌻</div>
             <p class="art-caption">my sunflower 🌻</p>
             <p class="tap-hint">✋🏻 tap fotonya!</p>
         </div>
@@ -271,7 +282,7 @@
             <h1>Happy Birthday <span class="accent">My Sunflower</span></h1>
             <p class="hero-name">✨ Dini Nurcahyani ✨</p>
             <p class="hero-tagline">"You're My Everything"</p>
-            <div class="hero-flowers">🌻 🦋  🦋 </div>
+            <div class="hero-flowers">🌻 🦋 🌻 🦋 🌻</div>
         </div>
         <div class="scroll-hint">👇🏻</div>
     </section>
@@ -392,7 +403,7 @@
 
         <div class="trip-summary" id="trip-summary">
             <div class="trip-head">🎫 BANDUNG TRIP TICKET 🎫</div>
-            <p class="trip-line">👩‍❤️👨🏻 Penumpang: <strong>Dini + Aku</strong></p>
+            <p class="trip-line">👩‍❤️👨 Penumpang: <strong>Dini + Aku</strong></p>
             <p class="trip-line">📅 Jadwal: <strong id="sum-weekend">-</strong></p>
             <p class="trip-line">📍 Wishlist kita:</p>
             <ul class="trip-places" id="sum-places"></ul>
@@ -413,6 +424,33 @@
         </div>
         <button class="spin-btn" id="spin-btn" onclick="spinWheel()">Putar Rodanya! 🎰</button>
         <p class="wheel-result" id="wheel-result"></p>
+    </section>
+
+    <!-- ===== CATCH GAME (BARU!) ===== -->
+    <section class="game-sec">
+        <h2 class="section-title">🦋 Tangkap Kupu-kupu & Sunflower! 🌻</h2>
+        <p class="section-sub">Tap sebanyak-banyaknya dalam 30 detik! Hadiahnya pesan spesial dari aku 💛</p>
+        <div class="game-area" id="game-area">
+            <div class="game-hud">
+                <span>⏱️ <b id="game-time">30</b>s</span>
+                <span>⭐ Skor: <b id="game-score">0</b></span>
+            </div>
+            <!-- Start overlay -->
+            <div class="game-overlay" id="game-start">
+                <h3>Siap Main? 🎮</h3>
+                <p>Kupu-kupu 🦋 & sunflower 🌻 bakal terbang ke mana-mana. Tap mereka secepat mungkin!</p>
+                <p style="color:var(--sunflower); font-weight:600;">🌻 = +10 poin &nbsp;•&nbsp; 🦋 = +5 poin</p>
+                <button class="game-btn" onclick="startGame()">Mulai Main! 🚀</button>
+            </div>
+            <!-- End overlay -->
+            <div class="game-overlay hidden" id="game-end">
+                <h3>Waktu Habis! ⏰</h3>
+                <div class="game-score-big" id="final-score">0</div>
+                <p class="game-msg" id="game-message"></p>
+                <button class="game-btn" onclick="startGame()">Main Lagi 🔄</button>
+                <button class="game-btn secondary" onclick="shareGameScore()">Kirim Skor ke Aku 💬</button>
+            </div>
+        </div>
     </section>
 
     <!-- SCRATCH -->
@@ -452,12 +490,12 @@
         <h2 class="section-title">🦋 Terbangkan Harapanmu 🦋</h2>
         <p class="section-sub">Tekan tombolnya, biar kupu-kupu bawa doamu ke langit</p>
         <button class="wish-btn" onclick="releaseButterflies()">Terbangkan Harapan ✨</button>
-        <p class="wish-result" id="wish-result">Semua doamu akan terkabul,Aamiin. 🌻</p>
+        <p class="wish-result" id="wish-result">Semua doamu akan terkabul, Aamiin. 🌻</p>
     </section>
 
     <footer class="footer">
         <p>Dibuat dengan sepenuh hati, khusus untukmu 🤍</p>
-        <div class="flower-row">🌻  🌻 🦋 🌻</div>
+        <div class="flower-row">🌻 🦋 🌻  🌻</div>
     </footer>
 </div>
 
@@ -579,7 +617,7 @@ hugBtn.addEventListener('pointercancel', stopHug);
 
 function burstHearts(count) {
     const c = document.getElementById('burst');
-    const items = ['💕','💛','🤗','','🌻'];
+    const items = ['💕','💛','🤗','💞','🌻'];
     for (let i = 0; i < count; i++) {
         setTimeout(() => {
             const p = document.createElement('span');
@@ -791,6 +829,127 @@ function spinWheel() {
     }, 4200);
 }
 
+// ===== CATCH GAME =====
+let gameScore = 0, gameTime = 30, gameRunning = false;
+let gameTimer = null, spawnTimer = null, moveTimers = [];
+const gameArea = document.getElementById('game-area');
+const TARGETS = [
+    { emoji:'🌻', points:10, weight:3 },
+    { emoji:'🦋', points:5, weight:5 }
+];
+
+function startGame() {
+    // Reset
+    gameScore = 0; gameTime = 30; gameRunning = true;
+    document.getElementById('game-score').textContent = '0';
+    document.getElementById('game-time').textContent = '30';
+    document.getElementById('game-start').classList.add('hidden');
+    document.getElementById('game-end').classList.add('hidden');
+    // Clear existing targets
+    document.querySelectorAll('.game-target, .float-score').forEach(el => el.remove());
+    moveTimers.forEach(t => clearInterval(t));
+    moveTimers = [];
+    clearInterval(gameTimer); clearInterval(spawnTimer);
+
+    // Countdown timer
+    gameTimer = setInterval(() => {
+        gameTime--;
+        document.getElementById('game-time').textContent = gameTime;
+        if (gameTime <= 0) endGame();
+    }, 1000);
+
+    // Spawn targets
+    spawnTarget();
+    spawnTimer = setInterval(spawnTarget, 700);
+}
+
+function spawnTarget() {
+    if (!gameRunning) return;
+    const rect = gameArea.getBoundingClientRect();
+    const totalWeight = TARGETS.reduce((s,t) => s + t.weight, 0);
+    let r = Math.random() * totalWeight, chosen = TARGETS[0];
+    for (const t of TARGETS) { r -= t.weight; if (r <= 0) { chosen = t; break; } }
+
+    const el = document.createElement('div');
+    el.className = 'game-target';
+    el.textContent = chosen.emoji;
+    const maxX = rect.width - 50, maxY = rect.height - 70;
+    let x = Math.random() * maxX, y = 50 + Math.random() * (maxY - 50);
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    gameArea.appendChild(el);
+
+    // Move around
+    const moveInt = setInterval(() => {
+        if (!gameRunning || !el.isConnected) { clearInterval(moveInt); return; }
+        x = Math.max(0, Math.min(maxX, x + (Math.random()-0.5)*60));
+        y = Math.max(50, Math.min(maxY, y + (Math.random()-0.5)*60));
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
+    }, 500);
+    moveTimers.push(moveInt);
+
+    // Catch handler
+    const catchHandler = (e) => {
+        e.preventDefault();
+        if (!gameRunning || el.classList.contains('caught')) return;
+        el.classList.add('caught');
+        gameScore += chosen.points;
+        document.getElementById('game-score').textContent = gameScore;
+        // Float score
+        const fs = document.createElement('div');
+        fs.className = 'float-score';
+        fs.textContent = '+' + chosen.points;
+        fs.style.left = el.style.left;
+        fs.style.top = el.style.top;
+        gameArea.appendChild(fs);
+        setTimeout(() => fs.remove(), 800);
+        setTimeout(() => el.remove(), 400);
+        clearInterval(moveInt);
+    };
+    el.addEventListener('pointerdown', catchHandler);
+
+    // Auto-remove after a while
+    setTimeout(() => {
+        if (el.isConnected && !el.classList.contains('caught')) {
+            el.remove();
+            clearInterval(moveInt);
+        }
+    }, 2200);
+}
+
+function endGame() {
+    gameRunning = false;
+    clearInterval(gameTimer); clearInterval(spawnTimer);
+    moveTimers.forEach(t => clearInterval(t));
+    document.querySelectorAll('.game-target').forEach(el => el.remove());
+
+    document.getElementById('final-score').textContent = gameScore;
+    let msg = '';
+    if (gameScore >= 150) msg = 'GILA KAMU JAGO BANGET! 🏆 Pasti karena kamu sering ngejar kupu-kupu di taman ya? 😍';
+    else if (gameScore >= 100) msg = 'WOW keren banget sayang! 🌟 Refleks kamu cepet banget, kayak waktu kamu nyuri hati aku 💘';
+    else if (gameScore >= 50) msg = 'Lumayan juga nih! 😊 Tapi yang penting kamu seneng mainnya kan?';
+    else msg = 'Hehe gapapa, yang penting kamu ketawa pas main 🥰 Aku tetep sayang kok!';
+    document.getElementById('game-message').textContent = msg;
+    document.getElementById('game-end').classList.remove('hidden');
+    burstPetals(40);
+}
+
+function shareGameScore() {
+    let rank = gameScore >= 150 ? '🏆 LEGENDARY' : gameScore >= 100 ? '🌟 PRO' : gameScore >= 50 ? '😊 CASUAL' : '🥰 CUTE';
+    const message =
+`🦋 *CATCH GAME SCORE* 🌻
+
+Aku baru main game di website birthday-ku!
+
+⭐ Skor: *${gameScore}* poin
+🎖️ Rank: ${rank}
+
+Hadiahnya dapet pesan manis dari kamu lho 💛
+Coba bikin website yang lebih seru lagi dong! 😤`;
+    openWA(message);
+}
+
 // ===== SCRATCH =====
 function initScratch() {
     document.querySelectorAll('.scratch-card').forEach(card => {
@@ -896,7 +1055,7 @@ function releaseButterflies() {
 // ===== BURST =====
 function burstPetals(count) {
     const c = document.getElementById('burst');
-    const items = ['🌻','🌼','✨','🦋',''];
+    const items = ['🌻','🌼','✨','🦋','💛'];
     for (let i = 0; i < count; i++) {
         setTimeout(() => {
             const p = document.createElement('span');
