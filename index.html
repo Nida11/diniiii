@@ -1377,7 +1377,7 @@ function releaseButterflies() {
             b.textContent = ['🦋','🦋','✨'][i%3];
             b.style.left = (startX + (Math.random()-0.5)*100) + 'px';
             b.style.top = startY + 'px';
-            b.style.setProperty('--dx', ((Math.random()-0.5)*200) + 'px';
+            b.style.setProperty('--dx', ((Math.random()-0.5)*200)) + 'px';
             b.style.animationDuration = (Math.random()*1.5+2) + 's';
             document.body.appendChild(b);
             setTimeout(() => b.remove(), 4000);
