@@ -14,7 +14,6 @@
     }
     body { font-family:'Poppins',sans-serif; background:var(--cream); overflow-x:hidden; }
 
-    /* ===== OPENING ===== */
     #opening { position:fixed; inset:0; background:radial-gradient(circle at center, var(--maroon), var(--maroon-deep)); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:10000; transition:opacity 1.5s ease, transform 1.5s ease; }
     #opening.hide { opacity:0; transform:scale(1.1); pointer-events:none; }
     .seed-sunflower { font-size:60px; cursor:pointer; animation:gentlePulse 2s ease-in-out infinite; transition:transform 0.5s cubic-bezier(0.175,0.885,0.32,1.275); filter:drop-shadow(0 0 30px rgba(255,195,11,0.4)); }
@@ -189,7 +188,47 @@
     .float-score { position:absolute; font-weight:700; font-size:20px; color:var(--maroon); pointer-events:none; z-index:15; animation:floatUp .8s ease forwards; }
     @keyframes floatUp { 0%{transform:translateY(0); opacity:1;} 100%{transform:translateY(-50px); opacity:0;} }
 
-    .scratch-sec { padding:70px 20px; background:linear-gradient(180deg,#FDF3E0,var(--cream)); }
+    /* ===== SUNFLOWER GARDEN (BARU!) ===== */
+    .garden-sec { padding:70px 20px; background:linear-gradient(180deg,var(--cream),#FBEED5); text-align:center; }
+    .garden-sec .section-title { color:var(--maroon-dark); }
+    .garden-intro { max-width:480px; margin:0 auto 30px; color:#6b5335; font-size:14px; line-height:1.8; font-style:italic; }
+    .garden-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; max-width:420px; margin:0 auto; }
+    .plot { position:relative; aspect-ratio:1/1; background:linear-gradient(180deg,#FBEED5,#F0E0C0); border:2px dashed #d4b896; border-radius:18px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:all .3s; overflow:hidden; }
+    .plot:hover { transform:translateY(-4px); border-color:var(--gold); }
+    .plot .seed-icon { font-size:30px; opacity:.5; transition:all .4s; }
+    .plot.watered .seed-icon { opacity:1; animation:sprout .6s ease; }
+    .plot.bloomed { background:linear-gradient(180deg,#FFF9E8,#FFE9A8); border:2px solid var(--sunflower); box-shadow:0 8px 25px rgba(255,195,11,.35); }
+    .plot.bloomed .seed-icon { font-size:42px; opacity:1; animation:bloomPop .7s cubic-bezier(.175,.885,.32,1.275); }
+    @keyframes sprout { 0%{transform:scale(.5) translateY(10px);} 100%{transform:scale(1) translateY(0);} }
+    @keyframes bloomPop { 0%{transform:scale(0) rotate(-30deg);} 60%{transform:scale(1.3) rotate(10deg);} 100%{transform:scale(1) rotate(0);} }
+    .watering-can { position:absolute; font-size:26px; pointer-events:none; opacity:0; z-index:5; }
+    .watering-can.pour { animation:pourWater .8s ease; }
+    @keyframes pourWater { 0%{opacity:0; transform:translate(-50%,-60%) rotate(0);} 30%{opacity:1; transform:translate(-50%,-40%) rotate(-25deg);} 100%{opacity:0; transform:translate(-50%,-20%) rotate(-25deg);} }
+    .garden-progress { margin:25px auto 0; font-size:13px; color:var(--maroon); background:#FFF3D6; border:1px dashed var(--gold); width:max-content; padding:8px 18px; border-radius:50px; }
+    .garden-final { max-width:480px; margin:25px auto 0; background:linear-gradient(135deg,var(--maroon),var(--maroon-dark)); border-radius:20px; padding:28px 24px; color:var(--cream); opacity:0; transform:translateY(20px); transition:all .8s; display:none; }
+    .garden-final.show { display:block; opacity:1; transform:translateY(0); }
+    .garden-final h3 { font-family:'Dancing Script',cursive; font-size:28px; color:var(--sunflower); margin-bottom:12px; }
+    .garden-final p { font-size:14px; line-height:1.9; font-style:italic; }
+    .memory-list { list-style:none; margin-top:15px; text-align:left; }
+    .memory-list li { font-size:13px; line-height:1.7; padding:6px 0; border-bottom:1px dashed rgba(255,195,11,.25); color:#f5e9d0; }
+    .memory-list li:last-child { border-bottom:none; }
+
+    /* ===== HEARTBEAT (BARU!) ===== */
+    .heartbeat-sec { padding:80px 20px; background:linear-gradient(135deg,var(--maroon-deep),var(--maroon)); text-align:center; position:relative; overflow:hidden; }
+    .heartbeat-sec .section-title { color:var(--sunflower); }
+    .heartbeat-sec .section-sub { color:rgba(255,248,231,.6); }
+    .heart-visual { font-size:90px; margin:10px 0 25px; display:inline-block; filter:drop-shadow(0 0 25px rgba(255,107,157,.5)); }
+    .heart-visual.beating { animation:heartbeat 0.8s ease-in-out infinite; }
+    @keyframes heartbeat { 0%,100%{transform:scale(1);} 15%{transform:scale(1.25);} 30%{transform:scale(1);} 45%{transform:scale(1.18);} 60%{transform:scale(1);} }
+    .pulse-ring { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:120px; height:120px; border-radius:50%; border:3px solid var(--sunflower); opacity:0; pointer-events:none; }
+    .pulse-ring.active { animation:pulseRing 1.5s ease-out infinite; }
+    @keyframes pulseRing { 0%{transform:translate(-50%,-50%) scale(.8); opacity:.7;} 100%{transform:translate(-50%,-50%) scale(2.5); opacity:0;} }
+    .heartbeat-btn { position:relative; padding:18px 45px; background:linear-gradient(135deg,var(--gold),var(--sunflower)); color:var(--maroon-dark); border:none; border-radius:60px; font-family:'Poppins',sans-serif; font-size:16px; font-weight:700; cursor:pointer; touch-action:none; user-select:none; -webkit-user-select:none; box-shadow:0 8px 30px rgba(212,160,23,.4); transition:transform .2s; }
+    .heartbeat-btn:active { transform:scale(.95); }
+    .heartbeat-msg { max-width:480px; margin:30px auto 0; font-family:'Dancing Script',cursive; font-size:24px; color:var(--sunflower); line-height:1.6; opacity:0; transform:translateY(15px); transition:all 1s ease; min-height:40px; }
+    .heartbeat-msg.show { opacity:1; transform:translateY(0); }
+
+    .scratch-sec { padding:70px 20px; background:linear-gradient(180deg,#FBEED5,var(--cream)); }
     .scratch-sec .section-title { color:var(--maroon-dark); }
     .scratch-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:20px; max-width:700px; margin:0 auto; }
     .scratch-card { position:relative; height:160px; border-radius:18px; overflow:hidden; box-shadow:0 8px 25px rgba(107,31,42,0.15); cursor:pointer; }
@@ -244,6 +283,7 @@
         .wheel-wrap { width:220px; height:220px; }
         .place-grid { grid-template-columns:repeat(2,1fr); }
         .game-area { height:340px; }
+        .garden-grid { gap:10px; }
     }
 </style>
 </head>
@@ -282,7 +322,7 @@
             <h1>Happy Birthday <span class="accent">My Sunflower</span></h1>
             <p class="hero-name">✨ Dini Nurcahyani ✨</p>
             <p class="hero-tagline">"You're My Everything"</p>
-            <div class="hero-flowers">🌻 🦋 🌻 🦋 🌻</div>
+            <div class="hero-flowers">🌻  🌻 🦋 </div>
         </div>
         <div class="scroll-hint">👇🏻</div>
     </section>
@@ -426,7 +466,7 @@
         <p class="wheel-result" id="wheel-result"></p>
     </section>
 
-    <!-- ===== CATCH GAME (BARU!) ===== -->
+    <!-- CATCH GAME -->
     <section class="game-sec">
         <h2 class="section-title">🦋 Tangkap Kupu-kupu & Sunflower! 🌻</h2>
         <p class="section-sub">Tap sebanyak-banyaknya dalam 30 detik! Hadiahnya pesan spesial dari aku 💛</p>
@@ -435,14 +475,12 @@
                 <span>⏱️ <b id="game-time">30</b>s</span>
                 <span>⭐ Skor: <b id="game-score">0</b></span>
             </div>
-            <!-- Start overlay -->
             <div class="game-overlay" id="game-start">
                 <h3>Siap Main? 🎮</h3>
                 <p>Kupu-kupu 🦋 & sunflower 🌻 bakal terbang ke mana-mana. Tap mereka secepat mungkin!</p>
                 <p style="color:var(--sunflower); font-weight:600;">🌻 = +10 poin &nbsp;•&nbsp; 🦋 = +5 poin</p>
                 <button class="game-btn" onclick="startGame()">Mulai Main! 🚀</button>
             </div>
-            <!-- End overlay -->
             <div class="game-overlay hidden" id="game-end">
                 <h3>Waktu Habis! ⏰</h3>
                 <div class="game-score-big" id="final-score">0</div>
@@ -450,6 +488,23 @@
                 <button class="game-btn" onclick="startGame()">Main Lagi 🔄</button>
                 <button class="game-btn secondary" onclick="shareGameScore()">Kirim Skor ke Aku 💬</button>
             </div>
+        </div>
+    </section>
+
+    <!-- ===== SUNFLOWER GARDEN (BARU!) ===== -->
+    <section class="garden-sec">
+        <h2 class="section-title">🌻 Kebun Sunflower Kita 🌻</h2>
+        <p class="garden-intro">
+            Kebun ini masih kosong, sayang... sama kayak hatiku sebelum ketemu kamu.
+            <br>Siram tiap bijinya — setiap bunga yang mekar adalah satu alasan kenapa aku sayang kamu. 💛
+        </p>
+        <div class="garden-grid" id="garden-grid"></div>
+        <div class="garden-progress" id="garden-progress">🌱 0 / 6 bunga mekar</div>
+        <div class="garden-final" id="garden-final">
+            <h3>Kebun Kita Udah Penuh Bunga 🌻✨</h3>
+            <p>Lihat... semuanya mekar karena kamu yang siram. Sama kayak cintaku — tumbuh subur karena kamu rawat dengan kehadiranmu.</p>
+            <ul class="memory-list" id="memory-list"></ul>
+            <p style="margin-top:15px; color:var(--sunflower); font-family:'Dancing Script',cursive; font-size:22px;">Terima kasih udah bikin hidupku semejak ini, sayang. 🥺</p>
         </div>
     </section>
 
@@ -473,6 +528,19 @@
                 <canvas class="scratch-canvas"></canvas>
             </div>
         </div>
+    </section>
+
+    <!-- ===== HEARTBEAT (BARU!) ===== -->
+    <section class="heartbeat-sec">
+        <h2 class="section-title">💞 Detak Jantung Kita 💞</h2>
+        <p class="section-sub">Tahan tombolnya... dengerin baik-baik 🤍</p>
+        <div style="position:relative; display:inline-block;">
+            <div class="pulse-ring" id="pulse-ring"></div>
+            <div class="heart-visual" id="heart-visual">❤️</div>
+        </div>
+        <br>
+        <button class="heartbeat-btn" id="heartbeat-btn" oncontextmenu="return false;">💓 Tahan buat denger detak jantungku</button>
+        <p class="heartbeat-msg" id="heartbeat-msg"></p>
     </section>
 
     <!-- LETTER -->
@@ -521,7 +589,7 @@ function bloomAndEnter() {
 // ===== PETALS & BUTTERFLIES =====
 function startPetals() {
     const c = document.getElementById('petals');
-    const items = ['🌻','🌼','✨','🍂'];
+    const items = ['🌻','','✨','🍂'];
     setInterval(() => {
         const p = document.createElement('span');
         p.className = 'petal';
@@ -617,7 +685,7 @@ hugBtn.addEventListener('pointercancel', stopHug);
 
 function burstHearts(count) {
     const c = document.getElementById('burst');
-    const items = ['💕','💛','🤗','💞','🌻'];
+    const items = ['💕','💛','','💞',''];
     for (let i = 0; i < count; i++) {
         setTimeout(() => {
             const p = document.createElement('span');
@@ -642,7 +710,7 @@ function sendWish() {
     const val = document.getElementById('wish-input').value.trim();
     const confirm = document.getElementById('wish-confirm');
     if (!val) {
-        confirm.textContent = 'Isi dulu wish-nya ya sayang 😤✍🏻';
+        confirm.textContent = 'Isi dulu wish-nya ya sayang 😤✍';
         confirm.classList.add('show');
         return;
     }
@@ -663,7 +731,7 @@ Awas kalau gak diturutin! 😤`;
 // ===== FOOD PICKER =====
 const foods = [
     { emoji:'🥂', title:'Fancy Dinner', desc:'Candle light dinner di tempat yang fancy. Kita makan kayak di film-film orang have 🌹', ticket:'🎟️ VOUCHER: 1x Fancy Dinner untuk 2 orang • Dress code: Cantik maksimal 👗' },
-    { emoji:'🍖', title:'All You Can Eat', desc:'Makan sepuasnya! Gak usah mikirin harga, gak usah diet dulu hari ini. Aku siap lihat kamu happy makan banyak 😋🔥', ticket:'🎟️ VOUCHER: 1x AYCE Session • Rules: Harus kenyang, dilarang nahan-nahan! 🍽️' },
+    { emoji:'🍖', title:'All You Can Eat', desc:'Makan sepuasnya! Gak usah mikirin harga, gak usah diet dulu hari ini. Aku siap lihat kamu happy makan banyak 😋', ticket:'️ VOUCHER: 1x AYCE Session • Rules: Harus kenyang, dilarang nahan-nahan! 🍽️' },
     { emoji:'🦐', title:'Seafood Feast', desc:'Udang bakar, kepiting saus tiram, cumi goreng tepung... Semua seafood favorit kamu siap menanti! 🦀', ticket:'🎟️ VOUCHER: 1x Seafood Feast • Menu: Semua yang kamu mau! 🦞' }
 ];
 let selectedFood = null, selectedTime = 'Dinner';
@@ -779,7 +847,6 @@ Jangan lupa bawa jaket, aku gak mau kamu kedinginan 🧥`;
     openWA(message);
 }
 
-// ===== WA HELPER =====
 function openWA(message) {
     const encoded = encodeURIComponent(message);
     const url = WA_NUMBER ? `https://wa.me/${WA_NUMBER}?text=${encoded}` : `https://wa.me/?text=${encoded}`;
@@ -839,26 +906,22 @@ const TARGETS = [
 ];
 
 function startGame() {
-    // Reset
     gameScore = 0; gameTime = 30; gameRunning = true;
     document.getElementById('game-score').textContent = '0';
     document.getElementById('game-time').textContent = '30';
     document.getElementById('game-start').classList.add('hidden');
     document.getElementById('game-end').classList.add('hidden');
-    // Clear existing targets
     document.querySelectorAll('.game-target, .float-score').forEach(el => el.remove());
     moveTimers.forEach(t => clearInterval(t));
     moveTimers = [];
     clearInterval(gameTimer); clearInterval(spawnTimer);
 
-    // Countdown timer
     gameTimer = setInterval(() => {
         gameTime--;
         document.getElementById('game-time').textContent = gameTime;
         if (gameTime <= 0) endGame();
     }, 1000);
 
-    // Spawn targets
     spawnTarget();
     spawnTimer = setInterval(spawnTarget, 700);
 }
@@ -879,7 +942,6 @@ function spawnTarget() {
     el.style.top = y + 'px';
     gameArea.appendChild(el);
 
-    // Move around
     const moveInt = setInterval(() => {
         if (!gameRunning || !el.isConnected) { clearInterval(moveInt); return; }
         x = Math.max(0, Math.min(maxX, x + (Math.random()-0.5)*60));
@@ -889,14 +951,12 @@ function spawnTarget() {
     }, 500);
     moveTimers.push(moveInt);
 
-    // Catch handler
     const catchHandler = (e) => {
         e.preventDefault();
         if (!gameRunning || el.classList.contains('caught')) return;
         el.classList.add('caught');
         gameScore += chosen.points;
         document.getElementById('game-score').textContent = gameScore;
-        // Float score
         const fs = document.createElement('div');
         fs.className = 'float-score';
         fs.textContent = '+' + chosen.points;
@@ -909,7 +969,6 @@ function spawnTarget() {
     };
     el.addEventListener('pointerdown', catchHandler);
 
-    // Auto-remove after a while
     setTimeout(() => {
         if (el.isConnected && !el.classList.contains('caught')) {
             el.remove();
@@ -949,6 +1008,124 @@ Hadiahnya dapet pesan manis dari kamu lho 💛
 Coba bikin website yang lebih seru lagi dong! 😤`;
     openWA(message);
 }
+
+// ===== SUNFLOWER GARDEN (BARU!) =====
+const memories = [
+    '🌻 Senyum kamu pertama kali yang bikin hariku cerah',
+    '🌻 Cara kamu ketawa sampe mata kamu menyipit',
+    '🌻 Sabar kamu ngadepin aku yang kadang nyebelin',
+    '🌻 Pelukan kamu yang bikin semua lelah hilang',
+    '🌻 Semangat kamu yang nularin aku tiap hari',
+    '🌻 Fakta bahwa kamu mau jadi "rumah" buat aku'
+];
+let bloomedCount = 0;
+(function initGarden() {
+    const grid = document.getElementById('garden-grid');
+    for (let i = 0; i < 6; i++) {
+        const plot = document.createElement('div');
+        plot.className = 'plot';
+        plot.dataset.index = i;
+        plot.innerHTML = '<span class="seed-icon">🌱</span><span class="watering-can">💧</span>';
+        plot.addEventListener('click', () => waterPlot(plot, i));
+        grid.appendChild(plot);
+    }
+})();
+
+function waterPlot(plot, i) {
+    if (plot.classList.contains('watered')) return;
+    const can = plot.querySelector('.watering-can');
+    can.classList.add('pour');
+    setTimeout(() => can.classList.remove('pour'), 800);
+    plot.classList.add('watered');
+    plot.querySelector('.seed-icon').textContent = '🌿';
+
+    // Bloom after a short delay
+    setTimeout(() => {
+        plot.classList.add('bloomed');
+        plot.querySelector('.seed-icon').textContent = '🌻';
+        bloomedCount++;
+        document.getElementById('garden-progress').textContent = `🌱 ${bloomedCount} / 6 bunga mekar`;
+        burstPetals(12);
+        if (bloomedCount >= 6) revealGarden();
+    }, 900);
+}
+
+function revealGarden() {
+    const list = document.getElementById('memory-list');
+    list.innerHTML = '';
+    memories.forEach(m => {
+        const li = document.createElement('li');
+        li.textContent = m;
+        list.appendChild(li);
+    });
+    setTimeout(() => {
+        document.getElementById('garden-final').classList.add('show');
+        document.getElementById('garden-final').scrollIntoView({ behavior:'smooth', block:'center' });
+        burstPetals(50);
+    }, 600);
+}
+
+// ===== HEARTBEAT (BARU!) =====
+let heartbeatAudioCtx = null, heartbeatOsc = null, heartbeatGain = null, heartbeatInterval = null;
+const heartBtn = document.getElementById('heartbeat-btn');
+const heartVisual = document.getElementById('heart-visual');
+const pulseRing = document.getElementById('pulse-ring');
+const heartMsg = document.getElementById('heartbeat-msg');
+
+function startHeartbeat(e) {
+    e.preventDefault();
+    if (heartbeatInterval) return;
+    heartVisual.classList.add('beating');
+    pulseRing.classList.add('active');
+    heartMsg.classList.add('show');
+    heartMsg.textContent = '💓 ...dengerin... setiap detaknya bilang namamu, Dini...';
+
+    // Web Audio heartbeat sound (low thump)
+    try {
+        if (!heartbeatAudioCtx) heartbeatAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const playThump = () => {
+            if (!heartbeatInterval) return;
+            const osc = heartbeatAudioCtx.createOscillator();
+            const gain = heartbeatAudioCtx.createGain();
+            osc.connect(gain); gain.connect(heartbeatAudioCtx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(70, heartbeatAudioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(40, heartbeatAudioCtx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.5, heartbeatAudioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, heartbeatAudioCtx.currentTime + 0.2);
+            osc.start(); osc.stop(heartbeatAudioCtx.currentTime + 0.2);
+            // second beat (lub-dub)
+            setTimeout(() => {
+                if (!heartbeatInterval) return;
+                const o2 = heartbeatAudioCtx.createOscillator();
+                const g2 = heartbeatAudioCtx.createGain();
+                o2.connect(g2); g2.connect(heartbeatAudioCtx.destination);
+                o2.type = 'sine';
+                o2.frequency.setValueAtTime(60, heartbeatAudioCtx.currentTime);
+                o2.frequency.exponentialRampToValueAtTime(35, heartbeatAudioCtx.currentTime + 0.12);
+                g2.gain.setValueAtTime(0.35, heartbeatAudioCtx.currentTime);
+                g2.gain.exponentialRampToValueAtTime(0.01, heartbeatAudioCtx.currentTime + 0.15);
+                o2.start(); o2.stop(heartbeatAudioCtx.currentTime + 0.15);
+            }, 180);
+        };
+        playThump();
+        heartbeatInterval = setInterval(playThump, 800);
+    } catch(err) { console.log('audio err', err); }
+}
+
+function stopHeartbeat() {
+    if (!heartbeatInterval) return;
+    clearInterval(heartbeatInterval);
+    heartbeatInterval = null;
+    heartVisual.classList.remove('beating');
+    pulseRing.classList.remove('active');
+    heartMsg.textContent = 'Itu detak jantungku... dan jujur, dia makin kenceng tiap mikirin kamu 🥺💕';
+}
+
+heartBtn.addEventListener('pointerdown', startHeartbeat);
+heartBtn.addEventListener('pointerup', stopHeartbeat);
+heartBtn.addEventListener('pointerleave', stopHeartbeat);
+heartBtn.addEventListener('pointercancel', stopHeartbeat);
 
 // ===== SCRATCH =====
 function initScratch() {
@@ -1037,7 +1214,7 @@ function releaseButterflies() {
         setTimeout(() => {
             const b = document.createElement('span');
             b.className = 'flying-butterfly';
-            b.textContent = ['🦋','','✨'][i%3];
+            b.textContent = ['🦋','🦋','✨'][i%3];
             b.style.left = (startX + (Math.random()-0.5)*100) + 'px';
             b.style.top = startY + 'px';
             b.style.setProperty('--dx', ((Math.random()-0.5)*200) + 'px');
