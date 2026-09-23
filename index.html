@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>🌻 Happy Birthday Dinii 🌻</title>
+<script src="https://www.youtube.com/iframe_api"></script>
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -320,11 +321,6 @@
     .sparkle { position:fixed; pointer-events:none; font-size:13px; z-index:99999; animation:sparkleFade 1s ease forwards; }
     @keyframes sparkleFade { 0%{transform:scale(1) rotate(0); opacity:1;} 100%{transform:scale(0) rotate(180deg) translateY(-25px); opacity:0;} }
 
-    .music-btn { position:fixed; bottom:20px; right:20px; width:52px; height:52px; background:linear-gradient(135deg,var(--maroon),var(--maroon-dark)); border:2px solid var(--gold); border-radius:50%; color:var(--sunflower); font-size:20px; cursor:pointer; z-index:9999; display:flex; align-items:center; justify-content:center; box-shadow:0 5px 20px rgba(107,31,42,0.4); transition:transform 0.3s ease; }
-    .music-btn:hover { transform:scale(1.1); }
-    .music-btn.playing { animation:pulseBtn 1.2s ease-in-out infinite; }
-    @keyframes pulseBtn { 0%,100%{transform:scale(1);} 50%{transform:scale(1.08);} }
-
     @keyframes fadeInUp { from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);} }
     @keyframes fadeInDown { from{opacity:0; transform:translateY(-30px);} to{opacity:1; transform:translateY(0);} }
 
@@ -342,6 +338,12 @@
 </style>
 </head>
 <body>
+
+<!-- Hidden YouTube player + tombol toggle musik -->
+<div id="yt-player-wrap" style="position:fixed; top:-9999px; left:-9999px; pointer-events:none; opacity:0; width:1px; height:1px;">
+    <div id="yt-player"></div>
+</div>
+<button id="music-toggle" onclick="toggleYTMusic()" style="position:fixed; top:20px; right:20px; width:52px; height:52px; background:linear-gradient(135deg,var(--maroon),var(--maroon-dark)); border:2px solid var(--gold); border-radius:50%; color:var(--sunflower); font-size:20px; cursor:pointer; z-index:9999; display:flex; align-items:center; justify-content:center; box-shadow:0 5px 20px rgba(107,31,42,0.4); opacity:0; pointer-events:none; transition:opacity .5s ease;">🎵</button>
 
 <div id="opening">
     <div class="seed-sunflower" id="seed" onclick="bloomAndEnter()">🌻</div>
@@ -497,7 +499,7 @@
 
         <div class="trip-summary" id="trip-summary">
             <div class="trip-head">🎫 BANDUNG TRIP TICKET 🎫</div>
-            <p class="trip-line">👩❤️ Penumpang: <strong>Dini + Aku</strong></p>
+            <p class="trip-line">👩‍❤️ Penumpang: <strong>Dini + Aku</strong></p>
             <p class="trip-line">📅 Jadwal: <strong id="sum-weekend">-</strong></p>
             <p class="trip-line">📍 Wishlist kita:</p>
             <ul class="trip-places" id="sum-places"></ul>
@@ -562,7 +564,7 @@
         </div>
     </section>
 
-    <!-- ===== ALBUM CERITA KITA ===== -->
+    <!-- ALBUM CERITA KITA -->
     <section class="gallery-sec">
         <h2 class="section-title">📖 Album Cerita Kita 📖</h2>
         <p class="section-sub">Setiap foto nyimpen pesan yang belum pernah aku ucapkan langsung... tap buat buka ✉️</p>
@@ -606,7 +608,7 @@
         </div>
     </section>
 
-    <!-- ===== TIME CAPSULE ===== -->
+    <!-- TIME CAPSULE -->
     <section class="capsule-sec">
         <h2 class="section-title">⏳ Kapsul Waktu ⏳</h2>
         <p class="capsule-intro">
@@ -634,7 +636,7 @@
         <p class="wish-result" id="wish-result">Semua doamu akan terkabul, Aamiin. 🌻</p>
     </section>
 
-    <!-- ===== STAR NIGHT / GRAND FINALE ===== -->
+    <!-- STAR NIGHT / GRAND FINALE -->
     <section class="star-sec">
         <h2 class="section-title">🌙 Malam Bintang: Gantung Harapanmu 🌠</h2>
         <p class="section-sub">Tap bintang yang berkelip → tulis harapanmu → gantung jadi konstelasi kita ✨</p>
@@ -649,43 +651,85 @@
 
     <footer class="footer">
         <p>Dibuat dengan sepenuh hati, khusus untukmu 🤍</p>
-        <div class="flower-row">🌻 🦋  🦋 🌻</div>
+        <div class="flower-row">🌻 🦋 🌻 🦋 🌻</div>
     </footer>
 </div>
 
-<button class="music-btn" id="music-btn" onclick="toggleMusic()">🎵</button>
-
-
 <script>
 const WA_NUMBER = '6285871501760';
-const YT_VIDEO_ID = '2Vv-BfVoq4g'; // ← GANTI INI DENGAN ID VIDEO YOUTUBE KALIAN!
+const YT_VIDEO_ID = '2Vv-BfVoq4g'; // ← GANTI DENGAN ID VIDEO YOUTUBE KALIAN!
 
-// ===== YOUTUBE MUSIC =====
-var ytPlayer = null, ytReady = false, ytPlaying = false;
-function onYouTubeIframeAPIReady() {
+// ===== YOUTUBE MUSIC (muted autoplay + unmute saat tap sunflower) =====
+var ytPlayer = null, ytReady = false, ytPlaying = false, ytFailed = false;
+
+window.onYouTubeIframeAPIReady = function () {
   ytPlayer = new YT.Player('yt-player', {
     videoId: YT_VIDEO_ID,
-    playerVars: { autoplay:0, controls:0, disablekb:1, fs:0, modestbranding:1, rel:0 },
-    events: { onReady: function() { ytReady = true; ytPlayer.setVolume(60); } }
+    playerVars: { autoplay: 1, controls: 0, disablekb: 1, fs: 0, modestbranding: 1, rel: 0, mute: 1, playsinline: 1 },
+    events: {
+      onReady: function () {
+        ytReady = true;
+        try { ytPlayer.mute(); ytPlayer.playVideo(); } catch (e) {}
+      },
+      onError: function () { ytFailed = true; }
+    }
   });
-}
+};
+if (window.YT && window.YT.Player) window.onYouTubeIframeAPIReady();
 
 function startYTMusic() {
-  if (!ytReady) { setTimeout(startYTMusic, 200); return; }
-  try { ytPlayer.playVideo(); ytPlaying = true; showMusicToggle(); } catch(e){}
+  if (ytFailed) { startFallbackMelody(); return; }
+  if (!ytReady) { setTimeout(startYTMusic, 150); return; }
+  try {
+    ytPlayer.unMute();
+    ytPlayer.setVolume(70);
+    ytPlayer.playVideo();
+    ytPlaying = true;
+    showMusicToggle();
+  } catch (e) { startFallbackMelody(); }
 }
+
 function toggleYTMusic() {
-  if (!ytPlayer) return;
-  if (ytPlaying) { ytPlayer.pauseVideo(); ytPlaying = false; document.getElementById('music-toggle').textContent = '🎵'; }
-  else { ytPlayer.playVideo(); ytPlaying = true; document.getElementById('music-toggle').textContent = '🎶'; }
+  var btn = document.getElementById('music-toggle');
+  if (ytReady && !ytFailed) {
+    if (ytPlaying) { ytPlayer.pauseVideo(); ytPlaying = false; btn.textContent = '\u{1F3B5}'; }
+    else { ytPlayer.unMute(); ytPlayer.playVideo(); ytPlaying = true; btn.textContent = '\u{1F3B6}'; }
+  } else {
+    if (fbPlaying) { stopFallbackMelody(); btn.textContent = '\u{1F3B5}'; }
+    else { startFallbackMelody(); btn.textContent = '\u{1F3B6}'; }
+  }
 }
 function showMusicToggle() {
   var btn = document.getElementById('music-toggle');
-  btn.style.opacity = '1'; btn.style.pointerEvents = 'auto';
-  btn.textContent = '🎶';
+  if (!btn) return;
+  btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; btn.textContent = '\u{1F3B6}';
 }
 
-// ===== SOUND EFFECTS (klik interaktif) =====
+// ===== FALLBACK MELODI (kalau YouTube gagal/diblokir) =====
+var fbCtx = null, fbPlaying = false, fbTimer = null, fbIdx = 0;
+var melody = [[262,0.3],[262,0.3],[294,0.6],[262,0.6],[349,0.6],[330,1.0],[262,0.3],[262,0.3],[294,0.6],[262,0.6],[392,0.6],[349,1.0],[262,0.3],[262,0.3],[523,0.6],[440,0.6],[349,0.6],[330,0.6],[294,0.8],[466,0.3],[466,0.3],[440,0.6],[349,0.6],[392,0.6],[349,1.2]];
+function startFallbackMelody() {
+  if (fbPlaying) return;
+  fbPlaying = true;
+  if (!fbCtx) fbCtx = new (window.AudioContext || window.webkitAudioContext)();
+  function next() {
+    if (!fbPlaying) return;
+    var n = melody[fbIdx % melody.length];
+    var o = fbCtx.createOscillator(), g = fbCtx.createGain();
+    o.connect(g); g.connect(fbCtx.destination);
+    o.type = 'sine'; o.frequency.value = n[0];
+    g.gain.setValueAtTime(0.25, fbCtx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.01, fbCtx.currentTime + n[1]);
+    o.start(); o.stop(fbCtx.currentTime + n[1]);
+    fbIdx++;
+    fbTimer = setTimeout(next, n[1]*1000 + 80);
+  }
+  next();
+  showMusicToggle();
+}
+function stopFallbackMelody() { fbPlaying = false; clearTimeout(fbTimer); }
+
+// ===== SOUND EFFECTS TIAP KLIK =====
 var sfxCtx = null;
 function playSfx(type) {
   try {
@@ -694,42 +738,40 @@ function playSfx(type) {
     var osc = sfxCtx.createOscillator();
     var gain = sfxCtx.createGain();
     osc.connect(gain); gain.connect(sfxCtx.destination);
-    var freq = 600, dur = 0.12;
-    if (type === 'click') { freq = 660; dur = 0.1; osc.type = 'sine'; }
-    else if (type === 'select') { freq = 880; dur = 0.15; osc.type = 'triangle'; }
+    var freq = 660, dur = 0.1;
+    if (type === 'select') { freq = 880; dur = 0.15; osc.type = 'triangle'; }
     else if (type === 'success') { freq = 1046; dur = 0.25; osc.type = 'sine'; }
     else if (type === 'tap') { freq = 523; dur = 0.08; osc.type = 'sine'; }
+    else { osc.type = 'sine'; }
     osc.frequency.setValueAtTime(freq, sfxCtx.currentTime);
     gain.gain.setValueAtTime(0.08, sfxCtx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, sfxCtx.currentTime + dur);
     osc.start(); osc.stop(sfxCtx.currentTime + dur);
   } catch(e){}
 }
-
-// Auto-attach sfx ke semua elemen interaktif
 function attachSfx() {
-  document.querySelectorAll('button, .chip, .food-card, .weekend-card, .place-card, .time-btn, .spin-btn, .game-btn, .deal-btn, .wa-btn, .lock-btn, .puzzle-piece, .plot, .wish-btn, .sky-send, .capsule-lock-btn, .polaroid-card').forEach(function(el) {
+  document.querySelectorAll('button, .chip, .food-card, .weekend-card, .place-card, .time-btn, .spin-btn, .game-btn, .deal-btn, .wa-btn, .lock-btn, .plot, .wish-btn, .sky-send, .capsule-lock-btn, .polaroid-card').forEach(function(el) {
     el.addEventListener('click', function() { playSfx('click'); }, true);
   });
 }
 
 // ===== OPENING =====
 function bloomAndEnter() {
-  const seed = document.getElementById('seed');
-  seed.classList.add('bloom');
-  startYTMusic(); // ← MUSIK LANGSUNG JALAN DI SINI!
-  setTimeout(() => {
-    document.getElementById('opening').classList.add('hide');
+    const seed = document.getElementById('seed');
+    seed.classList.add('bloom');
+    startYTMusic();
     setTimeout(() => {
-      document.getElementById('opening').style.display = 'none';
-      document.getElementById('main').classList.add('show');
-      startPetals(); startButterflies(); burstPetals(40);
-      attachSfx(); // ← attach sfx ke semua tombol setelah main tampil
-    }, 1200);
-  }, 1400);
+        document.getElementById('opening').classList.add('hide');
+        setTimeout(() => {
+            document.getElementById('opening').style.display = 'none';
+            document.getElementById('main').classList.add('show');
+            startPetals(); startButterflies(); burstPetals(40);
+            attachSfx();
+        }, 1200);
+    }, 1400);
 }
 
-// ===== Sisa kode (tetap sama, jangan diubah) =====
+// ===== PETALS & BUTTERFLIES =====
 function startPetals() {
     const c = document.getElementById('petals');
     const items = ['🌻','🌼','✨','🍂'];
@@ -756,6 +798,8 @@ function startButterflies() {
         setTimeout(() => b.remove(), 16000);
     }, 3000);
 }
+
+// ===== COUNTDOWN =====
 function updateCountdown() {
     const now = new Date();
     let bday = new Date(now.getFullYear(), 8, 27);
@@ -768,19 +812,64 @@ function updateCountdown() {
 }
 setInterval(updateCountdown, 1000);
 updateCountdown();
-const quotes = ['Kangen aku gak? Aku kangen banget 🥺','Cantik banget sih kamu hari ini 😍','Sabar ya sayang, Oktober aku datang! 🚌','Jangan lupa makan & senyum hari ini 🌻','Nanti di Bandung kita foto sebanyak-banyaknya ya! 📸','Kamu alasan aku semangat tiap hari 💛','Mau peluk? Pakai tombol hug di bawah ya 🤗'];
+
+// ===== TAP FOTO -> SPEECH BUBBLE =====
+const quotes = [
+    'Kangen aku gak? Aku kangen banget 🥺',
+    'Cantik banget sih kamu hari ini 😍',
+    'Sabar ya sayang, Oktober aku datang! 🚌',
+    'Jangan lupa makan & senyum hari ini 🌻',
+    'Nanti di Bandung kita foto sebanyak-banyaknya ya! 📸',
+    'Kamu alasan aku semangat tiap hari 💛',
+    'Mau peluk? Pakai tombol hug di bawah ya 🤗'
+];
 let bubbleTimer = null;
-function tapPortrait() { playSfx('tap'); const bubble = document.getElementById('speech-bubble'); bubble.textContent = quotes[Math.floor(Math.random()*quotes.length)]; bubble.classList.add('show'); clearTimeout(bubbleTimer); bubbleTimer = setTimeout(() => bubble.classList.remove('show'), 3200); burstPetals(8); }
+function tapPortrait() {
+    playSfx('tap');
+    const bubble = document.getElementById('speech-bubble');
+    bubble.textContent = quotes[Math.floor(Math.random()*quotes.length)];
+    bubble.classList.add('show');
+    clearTimeout(bubbleTimer);
+    bubbleTimer = setTimeout(() => bubble.classList.remove('show'), 3200);
+    burstPetals(8);
+}
+
+// ===== VIRTUAL HUG =====
 let hugProgress = 0, hugTimer = null, hugDone = false;
 const hugBtn = document.getElementById('hug-btn');
-function hugTick() { hugProgress += 2; if (hugProgress >= 100) { hugProgress = 100; completeHug(); } document.getElementById('hug-fill').style.height = hugProgress + '%'; }
-function startHug(e) { e.preventDefault(); if (hugDone) return; hugTimer = setInterval(hugTick, 30); }
-function stopHug() { clearInterval(hugTimer); if (!hugDone) { hugProgress = 0; document.getElementById('hug-fill').style.height = '0%'; } }
-function completeHug() { clearInterval(hugTimer); hugDone = true; hugBtn.classList.add('done'); document.getElementById('hug-label').textContent = 'PELUKAN TERKIRIM! 💌'; const msg = document.getElementById('hug-msg'); msg.textContent = 'Bayangin aku lagi meluk kamu erat banget... maaf ya belum bisa langsung 🥺💕'; msg.classList.add('show'); burstHearts(30); }
+function hugTick() {
+    hugProgress += 2;
+    if (hugProgress >= 100) { hugProgress = 100; completeHug(); }
+    document.getElementById('hug-fill').style.height = hugProgress + '%';
+}
+function startHug(e) {
+    e.preventDefault();
+    if (hugDone) return;
+    hugTimer = setInterval(hugTick, 30);
+}
+function stopHug() {
+    clearInterval(hugTimer);
+    if (!hugDone) {
+        hugProgress = 0;
+        document.getElementById('hug-fill').style.height = '0%';
+    }
+}
+function completeHug() {
+    clearInterval(hugTimer);
+    hugDone = true;
+    hugBtn.classList.add('done');
+    document.getElementById('hug-label').textContent = 'PELUKAN TERKIRIM! 💌';
+    const msg = document.getElementById('hug-msg');
+    msg.textContent = 'Bayangin aku lagi meluk kamu erat banget... maaf ya belum bisa langsung 🥺💕';
+    msg.classList.add('show');
+    burstHearts(30);
+    playSfx('success');
+}
 hugBtn.addEventListener('pointerdown', startHug);
 hugBtn.addEventListener('pointerup', stopHug);
 hugBtn.addEventListener('pointerleave', stopHug);
 hugBtn.addEventListener('pointercancel', stopHug);
+
 function burstHearts(count) {
     const c = document.getElementById('burst');
     const items = ['💕','💛','🤗','💞','🌻'];
@@ -797,81 +886,266 @@ function burstHearts(count) {
         }, i * 40);
     }
 }
-function setWish(chip, text) { document.querySelectorAll('.chip').forEach(c => c.classList.remove('active')); chip.classList.add('active'); document.getElementById('wish-input').value = text; }
+
+// ===== OCTOBER WISH =====
+function setWish(chip, text) {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    document.getElementById('wish-input').value = text;
+}
 function sendWish() {
     const val = document.getElementById('wish-input').value.trim();
     const confirm = document.getElementById('wish-confirm');
-    if (!val) { confirm.textContent = 'Isi dulu wish-nya ya sayang 😤'; confirm.classList.add('show'); return; }
-    const message = '🎁 *OKTOBER WISH* 🎁\n\nHai sayang! Aku mau pakai hak Oktober-ku:\n\n"Aku mau: ' + val + '"\n\nAwas kalau gak diturutin! 😤';
+    if (!val) {
+        confirm.textContent = 'Isi dulu wish-nya ya sayang 😤';
+        confirm.classList.add('show');
+        return;
+    }
+    const message =
+`🎁 *OKTOBER WISH* 🎁
+
+Hai sayang! Aku mau pakai hak Oktober-ku:
+
+"Aku mau: ${val}"
+
+Awas kalau gak diturutin! 😤`;
     openWA(message);
     confirm.textContent = 'Wish terkirim! Siap-siap diturutin ya 💛';
     confirm.classList.add('show');
     burstPetals(30);
+    playSfx('success');
 }
+
+// ===== FOOD PICKER =====
 const foods = [
     { emoji:'🥂', title:'Fancy Dinner', desc:'Candle light dinner di tempat yang fancy. Kita makan kayak di film-film orang have 🌹', ticket:'🎟️ VOUCHER: 1x Fancy Dinner untuk 2 orang • Dress code: Cantik maksimal 👗' },
     { emoji:'🍖', title:'All You Can Eat', desc:'Makan sepuasnya! Gak usah mikirin harga, gak usah diet dulu hari ini. Aku siap lihat kamu happy makan banyak 😋', ticket:'🎟️ VOUCHER: 1x AYCE Session • Rules: Harus kenyang, dilarang nahan-nahan! 🍽️' },
     { emoji:'🦐', title:'Seafood Feast', desc:'Udang bakar, kepiting saus tiram, cumi goreng tepung... Semua seafood favorit kamu siap menanti! 🦀', ticket:'🎟️ VOUCHER: 1x Seafood Feast • Menu: Semua yang kamu mau! 🦞' }
 ];
 let selectedFood = null, selectedTime = 'Dinner';
-function pickFood(card, idx) { document.querySelectorAll('.food-card').forEach(c => c.classList.remove('selected')); card.classList.add('selected'); selectedFood = idx; const f = foods[idx]; document.getElementById('reveal-emoji').textContent = f.emoji; document.getElementById('reveal-title').textContent = f.title; document.getElementById('reveal-desc').textContent = f.desc; document.getElementById('reveal-ticket').textContent = f.ticket; document.getElementById('food-reveal').classList.add('show'); document.getElementById('deal-msg').classList.remove('show'); document.getElementById('wa-btn').classList.remove('show'); document.getElementById('deal-btn').style.display = 'inline-block'; burstPetals(20); }
-function pickTime(btn, time) { document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); selectedTime = time; }
-function dealFood() { if (selectedFood === null) return; document.getElementById('deal-btn').style.display = 'none'; document.getElementById('wa-btn').classList.add('show'); document.getElementById('deal-msg').classList.add('show'); burstPetals(50); }
+
+function pickFood(card, idx) {
+    document.querySelectorAll('.food-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedFood = idx;
+    const f = foods[idx];
+    document.getElementById('reveal-emoji').textContent = f.emoji;
+    document.getElementById('reveal-title').textContent = f.title;
+    document.getElementById('reveal-desc').textContent = f.desc;
+    document.getElementById('reveal-ticket').textContent = f.ticket;
+    document.getElementById('food-reveal').classList.add('show');
+    document.getElementById('deal-msg').classList.remove('show');
+    document.getElementById('wa-btn').classList.remove('show');
+    document.getElementById('deal-btn').style.display = 'inline-block';
+    burstPetals(20);
+    playSfx('select');
+}
+function pickTime(btn, time) {
+    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedTime = time;
+    playSfx('click');
+}
+function dealFood() {
+    if (selectedFood === null) return;
+    document.getElementById('deal-btn').style.display = 'none';
+    document.getElementById('wa-btn').classList.add('show');
+    document.getElementById('deal-msg').classList.add('show');
+    burstPetals(50);
+    playSfx('success');
+}
 function sendToWhatsApp() {
     const f = foods[selectedFood];
-    const message = '🌻 *BIRTHDAY DINNER VOUCHER* 🌻\n\nHai sayangku! 💕\nVoucher dinner susulan kamu udah di-deal ya!\n\n🍽️ Menu: ' + f.title + '\n⏰ Waktu: ' + selectedTime + '\n📅 Bulan: Oktober 2026 (bulan milikmu!)\n👗 Dresscode: Cantik maksimal\n\nVoucher ini:\n✅ Berlaku selamanya\n✅ Tidak bisa di-refund\n✅ Tidak bisa dibatalkan\n✅ Dibayar lunas pakai cinta 💝\n\nSiap-siap ya, aku jemput! 🚗';
+    const message =
+`🌻 *BIRTHDAY DINNER VOUCHER* 🌻
+
+Hai sayangku! 💕
+Voucher dinner susulan kamu udah di-deal ya!
+
+🍽️ Menu: ${f.title}
+⏰ Waktu: ${selectedTime}
+📅 Bulan: Oktober 2026 (bulan milikmu!)
+👗 Dresscode: Cantik maksimal
+
+Voucher ini:
+✅ Berlaku selamanya
+✅ Tidak bisa di-refund
+✅ Tidak bisa dibatalkan
+✅ Dibayar lunas pakai cinta 💝
+
+Siap-siap ya, aku jemput! 🚗`;
     openWA(message);
 }
-let selectedWeekend = null; let selectedPlaces = [];
-function pickWeekend(card, label) { document.querySelectorAll('.weekend-card').forEach(c => c.classList.remove('selected')); card.classList.add('selected'); selectedWeekend = label; burstPetals(12); }
-function togglePlace(card, name, desc) { if (card.classList.contains('selected')) { card.classList.remove('selected'); selectedPlaces = selectedPlaces.filter(p => p.name !== name); } else { if (selectedPlaces.length >= 4) { showTripWarn('Maksimal 4 tempat dulu ya, biar gak capek 😆'); return; } card.classList.add('selected'); selectedPlaces.push({ name, desc }); } document.getElementById('place-counter').textContent = 'Pilih maksimal 4 tempat: ' + selectedPlaces.length + '/4'; }
-function showTripWarn(text) { const w = document.getElementById('trip-warn'); w.textContent = text; w.classList.add('show'); setTimeout(() => w.classList.remove('show'), 2500); }
+
+// ===== BANDUNG PLANNER =====
+let selectedWeekend = null;
+let selectedPlaces = [];
+
+function pickWeekend(card, label) {
+    document.querySelectorAll('.weekend-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedWeekend = label;
+    burstPetals(12);
+    playSfx('select');
+}
+function togglePlace(card, name, desc) {
+    if (card.classList.contains('selected')) {
+        card.classList.remove('selected');
+        selectedPlaces = selectedPlaces.filter(p => p.name !== name);
+    } else {
+        if (selectedPlaces.length >= 4) {
+            showTripWarn('Maksimal 4 tempat dulu ya, biar gak capek 😆');
+            return;
+        }
+        card.classList.add('selected');
+        selectedPlaces.push({ name, desc });
+    }
+    document.getElementById('place-counter').textContent = `Pilih maksimal 4 tempat: ${selectedPlaces.length}/4`;
+    playSfx('click');
+}
+function showTripWarn(text) {
+    const w = document.getElementById('trip-warn');
+    w.textContent = text;
+    w.classList.add('show');
+    setTimeout(() => w.classList.remove('show'), 2500);
+}
 function lockTrip() {
     if (!selectedWeekend) { showTripWarn('Pilih weekend-nya dulu ya sayang 📅'); return; }
     if (selectedPlaces.length === 0) { showTripWarn('Pilih minimal 1 tempat dong 📍'); return; }
     document.getElementById('sum-weekend').textContent = selectedWeekend;
-    const ul = document.getElementById('sum-places'); ul.innerHTML = '';
-    selectedPlaces.forEach(p => { const li = document.createElement('li'); li.textContent = p.name + ' — ' + p.desc; ul.appendChild(li); });
+    const ul = document.getElementById('sum-places');
+    ul.innerHTML = '';
+    selectedPlaces.forEach(p => {
+        const li = document.createElement('li');
+        li.textContent = `${p.name} — ${p.desc}`;
+        ul.appendChild(li);
+    });
     document.getElementById('trip-summary').classList.add('show');
     burstPetals(40);
+    playSfx('success');
     document.getElementById('trip-summary').scrollIntoView({ behavior:'smooth', block:'center' });
 }
 function sendTripWA() {
-    const list = selectedPlaces.map((p,i) => (i+1) + '. ' + p.name).join('\n');
-    const message = '🚌 *BANDUNG TRIP — LOCKED!* 🚌\n\nSayang, aku udah pilih jadwal kita:\n\n📅 Weekend: ' + selectedWeekend + '\n📍 Wishlist tempat kita:\n' + list + '\n\nAku siap-siap dari sekarang! 🎒💛\nJangan lupa bawa jaket, aku gak mau kamu kedinginan 🧥';
+    const list = selectedPlaces.map((p,i) => `${i+1}. ${p.name}`).join('\n');
+    const message =
+`🚌 *BANDUNG TRIP — LOCKED!* 🚌
+
+Sayang, aku udah pilih jadwal kita:
+
+📅 Weekend: ${selectedWeekend}
+📍 Wishlist tempat kita:
+${list}
+
+Aku siap-siap dari sekarang! 🎒💛
+Jangan lupa bawa jaket, aku gak mau kamu kedinginan 🧥`;
     openWA(message);
 }
-function openWA(message) { const encoded = encodeURIComponent(message); const url = WA_NUMBER ? 'https://wa.me/' + WA_NUMBER + '?text=' + encoded : 'https://wa.me/?text=' + encoded; window.open(url, '_blank'); }
+
+function openWA(message) {
+    const encoded = encodeURIComponent(message);
+    const url = WA_NUMBER ? `https://wa.me/${WA_NUMBER}?text=${encoded}` : `https://wa.me/?text=${encoded}`;
+    window.open(url, '_blank');
+}
+
+// ===== SPIN WHEEL =====
 const desserts = [
-    { emoji:'🍰', name:'Tiramisu' }, { emoji:'🍫', name:'Choco Lava' }, { emoji:'🍦', name:'Gelato' },
-    { emoji:'🧁', name:'Cupcake' }, { emoji:'🍓', name:'Strawberry Cake' }, { emoji:'🍮', name:'Pudding' }
+    { emoji:'🍰', name:'Tiramisu' },
+    { emoji:'🍫', name:'Choco Lava' },
+    { emoji:'🍦', name:'Gelato' },
+    { emoji:'🧁', name:'Cupcake' },
+    { emoji:'🍓', name:'Strawberry Cake' },
+    { emoji:'🍮', name:'Pudding' }
 ];
 let currentRotation = 0, spinning = false;
-(function addWheelLabels() { const wheel = document.getElementById('wheel'); desserts.forEach((d, i) => { const label = document.createElement('span'); label.className = 'wheel-label'; label.textContent = d.emoji; const angle = i * 60 + 30; label.style.transform = 'rotate(' + angle + 'deg) translateY(-85px) rotate(-' + angle + 'deg)'; wheel.appendChild(label); }); })();
-function spinWheel() { if (spinning) return; spinning = true; const btn = document.getElementById('spin-btn'); const result = document.getElementById('wheel-result'); btn.disabled = true; result.classList.remove('show'); const randomIndex = Math.floor(Math.random() * desserts.length); const segmentAngle = 360 / desserts.length; const targetAngle = 5*360 + (360 - randomIndex * segmentAngle - segmentAngle/2); currentRotation += targetAngle; document.getElementById('wheel').style.transform = 'rotate(' + currentRotation + 'deg)'; setTimeout(() => { spinning = false; btn.disabled = false; const d = desserts[randomIndex]; result.innerHTML = 'Dessert kamu: <strong>' + d.emoji + ' ' + d.name + '</strong>!'; result.classList.add('show'); burstPetals(30); }, 4200); }
-let gameScore = 0, gameTime = 30, gameRunning = false; let gameTimer = null, spawnTimer = null, moveTimers = [];
+(function addWheelLabels() {
+    const wheel = document.getElementById('wheel');
+    desserts.forEach((d, i) => {
+        const label = document.createElement('span');
+        label.className = 'wheel-label';
+        label.textContent = d.emoji;
+        const angle = i * 60 + 30;
+        label.style.transform = `rotate(${angle}deg) translateY(-85px) rotate(-${angle}deg)`;
+        wheel.appendChild(label);
+    });
+})();
+function spinWheel() {
+    if (spinning) return;
+    spinning = true;
+    const btn = document.getElementById('spin-btn');
+    const result = document.getElementById('wheel-result');
+    btn.disabled = true;
+    result.classList.remove('show');
+    const randomIndex = Math.floor(Math.random() * desserts.length);
+    const segmentAngle = 360 / desserts.length;
+    const targetAngle = 5*360 + (360 - randomIndex * segmentAngle - segmentAngle/2);
+    currentRotation += targetAngle;
+    document.getElementById('wheel').style.transform = `rotate(${currentRotation}deg)`;
+    setTimeout(() => {
+        spinning = false;
+        btn.disabled = false;
+        const d = desserts[randomIndex];
+        result.innerHTML = `Dessert kamu: <strong>${d.emoji} ${d.name}</strong>!`;
+        result.classList.add('show');
+        burstPetals(30);
+        playSfx('success');
+    }, 4200);
+}
+
+// ===== CATCH GAME =====
+let gameScore = 0, gameTime = 30, gameRunning = false;
+let gameTimer = null, spawnTimer = null, moveTimers = [];
 const gameArea = document.getElementById('game-area');
-const TARGETS = [ { emoji:'🌻', points:10, weight:3 }, { emoji:'🦋', points:5, weight:5 } ];
-function startGame() { gameScore = 0; gameTime = 30; gameRunning = true; document.getElementById('game-score').textContent = '0'; document.getElementById('game-time').textContent = '30'; document.getElementById('game-start').classList.add('hidden'); document.getElementById('game-end').classList.add('hidden'); document.querySelectorAll('.game-target, .float-score').forEach(el => el.remove()); moveTimers.forEach(t => clearInterval(t)); moveTimers = []; clearInterval(gameTimer); clearInterval(spawnTimer); gameTimer = setInterval(() => { gameTime--; document.getElementById('game-time').textContent = gameTime; if (gameTime <= 0) endGame(); }, 1000); spawnTarget(); spawnTimer = setInterval(spawnTarget, 700); }
+const TARGETS = [
+    { emoji:'🌻', points:10, weight:3 },
+    { emoji:'🦋', points:5, weight:5 }
+];
+
+function startGame() {
+    gameScore = 0; gameTime = 30; gameRunning = true;
+    document.getElementById('game-score').textContent = '0';
+    document.getElementById('game-time').textContent = '30';
+    document.getElementById('game-start').classList.add('hidden');
+    document.getElementById('game-end').classList.add('hidden');
+    document.querySelectorAll('.game-target, .float-score').forEach(el => el.remove());
+    moveTimers.forEach(t => clearInterval(t));
+    moveTimers = [];
+    clearInterval(gameTimer); clearInterval(spawnTimer);
+
+    gameTimer = setInterval(() => {
+        gameTime--;
+        document.getElementById('game-time').textContent = gameTime;
+        if (gameTime <= 0) endGame();
+    }, 1000);
+
+    spawnTarget();
+    spawnTimer = setInterval(spawnTarget, 700);
+}
+
 function spawnTarget() {
     if (!gameRunning) return;
     const rect = gameArea.getBoundingClientRect();
     const totalWeight = TARGETS.reduce((s,t) => s + t.weight, 0);
     let r = Math.random() * totalWeight, chosen = TARGETS[0];
     for (const t of TARGETS) { r -= t.weight; if (r <= 0) { chosen = t; break; } }
+
     const el = document.createElement('div');
-    el.className = 'game-target'; el.textContent = chosen.emoji;
+    el.className = 'game-target';
+    el.textContent = chosen.emoji;
     const maxX = rect.width - 50, maxY = rect.height - 70;
     let x = Math.random() * maxX, y = 50 + Math.random() * (maxY - 50);
-    el.style.left = x + 'px'; el.style.top = y + 'px';
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
     gameArea.appendChild(el);
+
     const moveInt = setInterval(() => {
         if (!gameRunning || !el.isConnected) { clearInterval(moveInt); return; }
         x = Math.max(0, Math.min(maxX, x + (Math.random()-0.5)*60));
         y = Math.max(50, Math.min(maxY, y + (Math.random()-0.5)*60));
-        el.style.left = x + 'px'; el.style.top = y + 'px';
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
     }, 500);
     moveTimers.push(moveInt);
+
     const catchHandler = (e) => {
         e.preventDefault();
         if (!gameRunning || el.classList.contains('caught')) return;
@@ -880,20 +1154,31 @@ function spawnTarget() {
         document.getElementById('game-score').textContent = gameScore;
         playSfx('tap');
         const fs = document.createElement('div');
-        fs.className = 'float-score'; fs.textContent = '+' + chosen.points;
-        fs.style.left = el.style.left; fs.style.top = el.style.top;
+        fs.className = 'float-score';
+        fs.textContent = '+' + chosen.points;
+        fs.style.left = el.style.left;
+        fs.style.top = el.style.top;
         gameArea.appendChild(fs);
         setTimeout(() => fs.remove(), 800);
         setTimeout(() => el.remove(), 400);
         clearInterval(moveInt);
     };
     el.addEventListener('pointerdown', catchHandler);
-    setTimeout(() => { if (el.isConnected && !el.classList.contains('caught')) { el.remove(); clearInterval(moveInt); } }, 2200);
+
+    setTimeout(() => {
+        if (el.isConnected && !el.classList.contains('caught')) {
+            el.remove();
+            clearInterval(moveInt);
+        }
+    }, 2200);
 }
+
 function endGame() {
-    gameRunning = false; clearInterval(gameTimer); clearInterval(spawnTimer);
+    gameRunning = false;
+    clearInterval(gameTimer); clearInterval(spawnTimer);
     moveTimers.forEach(t => clearInterval(t));
     document.querySelectorAll('.game-target').forEach(el => el.remove());
+
     document.getElementById('final-score').textContent = gameScore;
     let msg = '';
     if (gameScore >= 150) msg = 'GILA KAMU JAGO BANGET! 🏆 Pasti karena kamu sering ngejar kupu-kupu di taman ya? 😍';
@@ -902,25 +1187,47 @@ function endGame() {
     else msg = 'Hehe gapapa, yang penting kamu ketawa pas main 🥰 Aku tetep sayang kok!';
     document.getElementById('game-message').textContent = msg;
     document.getElementById('game-end').classList.remove('hidden');
-    burstPetals(40); playSfx('success');
+    burstPetals(40);
+    playSfx('success');
 }
+
 function shareGameScore() {
     let rank = gameScore >= 150 ? '🏆 LEGENDARY' : gameScore >= 100 ? '🌟 PRO' : gameScore >= 50 ? '😊 CASUAL' : '🥰 CUTE';
-    const message = '🦋 *CATCH GAME SCORE* 🌻\n\nAku baru main game di website birthday-ku!\n\n⭐ Skor: *' + gameScore + '* poin\n🎖️ Rank: ' + rank + '\n\nHadiahnya dapet pesan manis dari kamu lho 💛\nCoba bikin website yang lebih seru lagi dong! 😤';
+    const message =
+`🦋 *CATCH GAME SCORE* 🌻
+
+Aku baru main game di website birthday-ku!
+
+⭐ Skor: *${gameScore}* poin
+🎖️ Rank: ${rank}
+
+Hadiahnya dapet pesan manis dari kamu lho 💛
+Coba bikin website yang lebih seru lagi dong! 😤`;
     openWA(message);
 }
-const memories = ['🌻 Senyum kamu pertama kali yang bikin hariku cerah','🌻 Cara kamu ketawa sampe mata kamu menyipit','🌻 Sabar kamu ngadepin aku yang kadang nyebelin','🌻 Pelukan kamu yang bikin semua lelah hilang','🌻 Semangat kamu yang nularin aku tiap hari','🌻 Fakta bahwa kamu mau jadi "rumah" buat aku'];
+
+// ===== SUNFLOWER GARDEN =====
+const memories = [
+    '🌻 Senyum kamu pertama kali yang bikin hariku cerah',
+    '🌻 Cara kamu ketawa sampe mata kamu menyipit',
+    '🌻 Sabar kamu ngadepin aku yang kadang nyebelin',
+    '🌻 Pelukan kamu yang bikin semua lelah hilang',
+    '🌻 Semangat kamu yang nularin aku tiap hari',
+    '🌻 Fakta bahwa kamu mau jadi "rumah" buat aku'
+];
 let bloomedCount = 0;
 (function initGarden() {
     const grid = document.getElementById('garden-grid');
     for (let i = 0; i < 6; i++) {
         const plot = document.createElement('div');
-        plot.className = 'plot'; plot.dataset.index = i;
+        plot.className = 'plot';
+        plot.dataset.index = i;
         plot.innerHTML = '<span class="seed-icon">🌱</span><span class="watering-can">💧</span>';
         plot.addEventListener('click', () => waterPlot(plot, i));
         grid.appendChild(plot);
     }
 })();
+
 function waterPlot(plot, i) {
     if (plot.classList.contains('watered')) return;
     const can = plot.querySelector('.watering-can');
@@ -928,27 +1235,42 @@ function waterPlot(plot, i) {
     setTimeout(() => can.classList.remove('pour'), 800);
     plot.classList.add('watered');
     plot.querySelector('.seed-icon').textContent = '🌿';
+
     setTimeout(() => {
         plot.classList.add('bloomed');
         plot.querySelector('.seed-icon').textContent = '🌻';
         bloomedCount++;
-        document.getElementById('garden-progress').textContent = '🌱 ' + bloomedCount + ' / 6 bunga mekar';
-        burstPetals(12); playSfx('select');
+        document.getElementById('garden-progress').textContent = `🌱 ${bloomedCount} / 6 bunga mekar`;
+        burstPetals(12);
+        playSfx('select');
         if (bloomedCount >= 6) revealGarden();
     }, 900);
 }
+
 function revealGarden() {
-    const list = document.getElementById('memory-list'); list.innerHTML = '';
-    memories.forEach(m => { const li = document.createElement('li'); li.textContent = m; list.appendChild(li); });
-    setTimeout(() => { document.getElementById('garden-final').classList.add('show'); document.getElementById('garden-final').scrollIntoView({ behavior:'smooth', block:'center' }); burstPetals(50); playSfx('success'); }, 600);
+    const list = document.getElementById('memory-list');
+    list.innerHTML = '';
+    memories.forEach(m => {
+        const li = document.createElement('li');
+        li.textContent = m;
+        list.appendChild(li);
+    });
+    setTimeout(() => {
+        document.getElementById('garden-final').classList.add('show');
+        document.getElementById('garden-final').scrollIntoView({ behavior:'smooth', block:'center' });
+        burstPetals(50);
+        playSfx('success');
+    }, 600);
 }
+
+// ===== ALBUM CERITA KITA =====
 var GALLERY = [
-  { src:'images/kenangan-1.png', fb:'🌻', tilt:-3, cap:'my sunflower 🌻', msg:'Kamu kayak matahari buat aku — bahkan di hari paling mendung sekalipun, kamu tetap alasan aku tersenyum.' },
-  { src:'images/kenangan-2.png', fb:'🐱', tilt:2, cap:'team meong 🐱', msg:'Kalau nanti kita punya rumah sendiri, aku mau adopsi kucing oren & hitam kayak gini... biar ada yang nyambut kita pulang, selain kamu.' },
-  { src:'images/kenangan-3.png', fb:'👽', tilt:-2, cap:'partner anehku 🤪', msg:'Kita emang pasangan yang aneh bareng-bareng. Tapi anehnya kamu... yang bikin aku merasa akhirnya punya rumah.' },
-  { src:'images/kenangan-4.png', fb:'🧸', tilt:3, cap:'keluarga kecil kita 🧸', msg:'Shinchan, Doraemon, Butterbear — saksi bisu kalau di duniaku, kamu selalu jadi tokoh utamanya.' },
-  { src:'images/kenangan-5.png', fb:'🏔️', tilt:-2, cap:'mimpi kita 🏔️', msg:'Suatu hari nanti, kita berdiri bareng di tempat ini. Bukan di gambar — tapi beneran. Aku janji, sayang.' },
-  { src:'', fb:'📸', tilt:2, cap:'halaman berikutnya...', msg:'Slot ini aku kosongin sengaja... buat foto kita berdua yang asli, yang bakal kita cetak dan tempel bareng nanti. 📸🤍' }
+  { src:'images/kenangan-1.png', fb:'\u{1F33B}', tilt:-3, cap:'my sunflower \u{1F33B}', msg:'Kamu kayak matahari buat aku \u2014 bahkan di hari paling mendung sekalipun, kamu tetap alasan aku tersenyum.' },
+  { src:'images/kenangan-2.png', fb:'\u{1F431}', tilt:2, cap:'team meong \u{1F431}', msg:'Kalau nanti kita punya rumah sendiri, aku mau adopsi kucing oren & hitam kayak gini... biar ada yang nyambut kita pulang, selain kamu.' },
+  { src:'images/kenangan-3.png', fb:'\u{1F47D}', tilt:-2, cap:'partner anehku \u{1F92A}', msg:'Kita emang pasangan yang aneh bareng-bareng. Tapi anehnya kamu... yang bikin aku merasa akhirnya punya rumah.' },
+  { src:'images/kenangan-4.png', fb:'\u{1F9F8}', tilt:3, cap:'keluarga kecil kita \u{1F9F8}', msg:'Shinchan, Doraemon, Butterbear \u2014 saksi bisu kalau di duniaku, kamu selalu jadi tokoh utamanya.' },
+  { src:'images/kenangan-5.png', fb:'\u{1F3D4}\uFE0F', tilt:-2, cap:'mimpi kita \u{1F3D4}\uFE0F', msg:'Suatu hari nanti, kita berdiri bareng di tempat ini. Bukan di gambar \u2014 tapi beneran. Aku janji, sayang.' },
+  { src:'', fb:'\u{1F4F8}', tilt:2, cap:'halaman berikutnya...', msg:'Slot ini aku kosongin sengaja... buat foto kita berdua yang asli, yang bakal kita cetak dan tempel bareng nanti. \u{1F4F8}\u{1F90D}' }
 ];
 var flippedSet = {};
 (function initGallery() {
@@ -959,41 +1281,69 @@ var flippedSet = {};
     card.style.setProperty('--tilt', item.tilt + 'deg');
     var imgHtml = item.src
       ? '<div class="pol-img-wrap"><img src="' + item.src + '" alt="kenangan" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';"><div class="pol-fallback">' + item.fb + '</div></div>'
-      : '<div class="pol-blank"><span>📸</span>foto kita berdua yang asli<br>segera, aku janji 🤍</div>';
-    card.innerHTML = '<div class="pol-inner"><div class="pol-front"><div class="pol-tape"></div>' + imgHtml + '<p class="pol-caption">' + item.cap + '</p><p class="pol-hint">tap buat baca pesan ✉️</p></div><div class="pol-back"><p class="pol-msg">' + item.msg + '</p><span class="pol-sign">— aku, yang sayang kamu 💛</span></div></div>';
+      : '<div class="pol-blank"><span>\u{1F4F8}</span>foto kita berdua yang asli<br>segera, aku janji \u{1F90D}</div>';
+    card.innerHTML =
+      '<div class="pol-inner">' +
+        '<div class="pol-front"><div class="pol-tape"></div>' + imgHtml +
+          '<p class="pol-caption">' + item.cap + '</p>' +
+          '<p class="pol-hint">tap buat baca pesan \u2709\uFE0F</p>' +
+        '</div>' +
+        '<div class="pol-back"><p class="pol-msg">' + item.msg + '</p><span class="pol-sign">\u2014 aku, yang sayang kamu \u{1F49B}</span></div>' +
+      '</div>';
     card.addEventListener('click', function() { flipCard(card, i); });
     grid.appendChild(card);
   });
-  var obs = new IntersectionObserver(function(entries) { entries.forEach(function(en) { if (en.isIntersecting) { en.target.classList.add('revealed'); obs.unobserve(en.target); } }); }, { threshold: 0.2 });
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(en) { if (en.isIntersecting) { en.target.classList.add('revealed'); obs.unobserve(en.target); } });
+  }, { threshold: 0.2 });
   document.querySelectorAll('.polaroid-card').forEach(function(c) { obs.observe(c); });
 })();
 function flipCard(card, i) {
   card.classList.toggle('flipped');
   if (card.classList.contains('flipped')) { flippedSet[i] = true; } else { delete flippedSet[i]; }
   var n = Object.keys(flippedSet).length;
-  document.getElementById('gallery-progress').textContent = '✉️ ' + n + ' / ' + GALLERY.length + ' pesan terbuka';
+  document.getElementById('gallery-progress').textContent = '\u2709\uFE0F ' + n + ' / ' + GALLERY.length + ' pesan terbuka';
   if (n >= GALLERY.length) {
     var fin = document.getElementById('gallery-final');
-    if (!fin.classList.contains('show')) { fin.classList.add('show'); burstPetals(50); playSfx('success'); setTimeout(function() { fin.scrollIntoView({ behavior:'smooth', block:'center' }); }, 400); }
+    if (!fin.classList.contains('show')) {
+      fin.classList.add('show');
+      burstPetals(50);
+      playSfx('success');
+      setTimeout(function() { fin.scrollIntoView({ behavior:'smooth', block:'center' }); }, 400);
+    }
   }
 }
+
+// ===== SCRATCH =====
 function initScratch() {
     document.querySelectorAll('.scratch-card').forEach(card => {
         const canvas = card.querySelector('.scratch-canvas');
         const ctx = canvas.getContext('2d');
         function resize() {
-            canvas.width = card.offsetWidth; canvas.height = card.offsetHeight;
+            canvas.width = card.offsetWidth;
+            canvas.height = card.offsetHeight;
             const grad = ctx.createLinearGradient(0,0,canvas.width,canvas.height);
             grad.addColorStop(0,'#6B1F2A'); grad.addColorStop(0.5,'#8B2F3A'); grad.addColorStop(1,'#4A0E18');
-            ctx.fillStyle = grad; ctx.fillRect(0,0,canvas.width,canvas.height);
-            ctx.fillStyle = '#FFC30B'; ctx.font = '16px Poppins, sans-serif'; ctx.textAlign = 'center';
+            ctx.fillStyle = grad;
+            ctx.fillRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle = '#FFC30B';
+            ctx.font = '16px Poppins, sans-serif';
+            ctx.textAlign = 'center';
             ctx.fillText('✨ Gosok aku ✨', canvas.width/2, canvas.height/2 - 10);
-            ctx.font = '24px sans-serif'; ctx.fillText('🌻', canvas.width/2, canvas.height/2 + 25);
+            ctx.font = '24px sans-serif';
+            ctx.fillText('🌻', canvas.width/2, canvas.height/2 + 25);
         }
         resize();
         let scratching = false;
-        function scratch(x,y) { ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath(); ctx.arc(x,y,22,0,Math.PI*2); ctx.fill(); }
-        function getPos(e) { const r = canvas.getBoundingClientRect(); const t = e.touches ? e.touches[0] : e; return { x: t.clientX - r.left, y: t.clientY - r.top }; }
+        function scratch(x,y) {
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath(); ctx.arc(x,y,22,0,Math.PI*2); ctx.fill();
+        }
+        function getPos(e) {
+            const r = canvas.getBoundingClientRect();
+            const t = e.touches ? e.touches[0] : e;
+            return { x: t.clientX - r.left, y: t.clientY - r.top };
+        }
         canvas.addEventListener('pointerdown', e => { scratching=true; const p=getPos(e); scratch(p.x,p.y); });
         canvas.addEventListener('pointermove', e => { if(scratching){ const p=getPos(e); scratch(p.x,p.y);} });
         canvas.addEventListener('pointerup', () => scratching=false);
@@ -1002,30 +1352,74 @@ function initScratch() {
     });
 }
 initScratch();
-const letterText = 'Hai sayangku... 🌻\n\nSelamat ulang tahun ya.\n\nMaaf banget tanggal 27 September aku gak bisa ada di samping kamu. Rasanya berat nulis ini... tapi aku mau kamu tahu: jarak dan tanggal gak ngurangin sayangku sedikit pun.\n\nMakanya aku bikin kesepakatan sepihak: SELURUH BULAN OKTOBER adalah bulan milikmu. Apapun yang kamu mau, aku yang wujudin. Kemanapun kamu pergi, aku yang temani.\n\nDan udah aku siapin kejutan: kita ke Bandung! 🚌 Kamu yang pilih tanggalnya, kamu yang pilih tempatnya. Anggap aja website ini kupon raksasa yang gak punya tanggal kedaluwarsa.\n\nHappy birthday, my sunflower. 🌻\nI love you more than words can say.\n\nTunggu aku di Oktober ya... 🚌';
+
+// ===== TYPEWRITER LETTER =====
+const letterText = `Hai sayangku... 🌻
+
+Selamat ulang tahun ya.
+
+Maaf banget tanggal 27 September aku gak bisa ada di samping kamu. Rasanya berat nulis ini... tapi aku mau kamu tahu: jarak dan tanggal gak ngurangin sayangku sedikit pun.
+
+Makanya aku bikin kesepakatan sepihak: SELURUH BULAN OKTOBER adalah bulan milikmu. Apapun yang kamu mau, aku yang wujudin. Kemanapun kamu pergi, aku yang temani.
+
+Dan udah aku siapin kejutan: kita ke Bandung! 🚌 Kamu yang pilih tanggalnya, kamu yang pilih tempatnya. Anggap aja website ini kupon raksasa yang gak punya tanggal kedaluwarsa.
+
+Happy birthday, my sunflower. 🌻
+I love you more than words can say.
+
+Tunggu aku di Oktober ya... 🚌`;
+
 let twIndex = 0, twStarted = false;
 function typeLetter() {
     if (twStarted) return;
     twStarted = true;
     const el = document.getElementById('typewriter-text');
-    function type() { if (twIndex < letterText.length) { el.textContent += letterText[twIndex]; twIndex++; setTimeout(type, letterText[twIndex-1] === '\n' ? 100 : 30); } else { document.getElementById('tw-cursor').style.display = 'none'; document.getElementById('letter-sign').classList.add('show'); } }
+    function type() {
+        if (twIndex < letterText.length) {
+            el.textContent += letterText[twIndex];
+            twIndex++;
+            setTimeout(type, letterText[twIndex-1] === '\n' ? 100 : 30);
+        } else {
+            document.getElementById('tw-cursor').style.display = 'none';
+            document.getElementById('letter-sign').classList.add('show');
+        }
+    }
     type();
 }
-const letterObserver = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) typeLetter(); }); }, { threshold: 0.3 });
+const letterObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) typeLetter(); });
+}, { threshold: 0.3 });
 letterObserver.observe(document.querySelector('.letter-sec'));
+
+// ===== TIME CAPSULE =====
 function lockCapsule() {
     const text = document.getElementById('capsule-text').value.trim();
-    if (!text) { alert('Tulis dulu surat buat Dini masa depannya ya sayang ✍'); return; }
-    const message = '⏳ *KAPSUL WAKTU DINI* ⏳\n\nHai sayang, ini kapsul waktu yang Dini tulis buat dirinya 1 tahun lagi:\n\n"' + text + '"\n\n📅 Akan aku kirim balik ke dia: 27 September 2027\n🔒 Aku yang simpan aman ya! Janji! 🤍';
+    if (!text) {
+        alert('Tulis dulu surat buat Dini masa depannya ya sayang ✍');
+        return;
+    }
+    const message =
+`⏳ *KAPSUL WAKTU DINI* ⏳
+
+Hai sayang, ini kapsul waktu yang Dini tulis buat dirinya 1 tahun lagi:
+
+"${text}"
+
+📅 Akan aku kirim balik ke dia: 27 September 2027
+🔒 Aku yang simpan aman ya! Janji! 🤍`;
     openWA(message);
     document.getElementById('capsule-locked').classList.add('show');
     document.getElementById('capsule-text').disabled = true;
-    burstPetals(40); playSfx('success');
+    burstPetals(40);
+    playSfx('success');
 }
+
+// ===== BUTTERFLY WISH =====
 function releaseButterflies() {
     const btn = document.querySelector('.wish-btn');
     const rect = btn.getBoundingClientRect();
-    const startX = rect.left + rect.width/2; const startY = rect.top;
+    const startX = rect.left + rect.width/2;
+    const startY = rect.top;
     for (let i = 0; i < 12; i++) {
         setTimeout(() => {
             const b = document.createElement('span');
@@ -1039,14 +1433,23 @@ function releaseButterflies() {
             setTimeout(() => b.remove(), 4000);
         }, i * 120);
     }
-    setTimeout(() => { document.getElementById('wish-result').classList.add('show'); burstPetals(40); playSfx('success'); }, 800);
+    setTimeout(() => {
+        document.getElementById('wish-result').classList.add('show');
+        burstPetals(40);
+        playSfx('success');
+    }, 800);
 }
-let skyWishCount = 0; let pendingStarPos = null;
+
+// ===== STAR NIGHT / GRAND FINALE =====
+let skyWishCount = 0;
+let pendingStarPos = null;
 const skyCanvas = document.getElementById('sky-canvas');
+
 (function initSky() {
     for (let i = 0; i < 40; i++) {
         const star = document.createElement('div');
-        star.className = 'sky-star'; star.textContent = '✦';
+        star.className = 'sky-star';
+        star.textContent = '✦';
         star.style.left = Math.random()*100 + '%';
         star.style.top = Math.random()*100 + '%';
         star.style.animationDelay = Math.random()*2 + 's';
@@ -1055,50 +1458,82 @@ const skyCanvas = document.getElementById('sky-canvas');
         skyCanvas.appendChild(star);
     }
     spawnWishStar();
-    setInterval(() => { if (document.querySelectorAll('.wish-star').length < 3) spawnWishStar(); }, 2500);
-    setInterval(() => { const shoot = document.createElement('div'); shoot.className = 'shooting-star'; shoot.style.left = Math.random()*60 + '%'; shoot.style.top = Math.random()*40 + '%'; skyCanvas.appendChild(shoot); setTimeout(() => shoot.remove(), 1500); }, 4000);
+    setInterval(() => {
+        if (document.querySelectorAll('.wish-star').length < 3) spawnWishStar();
+    }, 2500);
+    setInterval(() => {
+        const shoot = document.createElement('div');
+        shoot.className = 'shooting-star';
+        shoot.style.left = Math.random()*60 + '%';
+        shoot.style.top = Math.random()*40 + '%';
+        skyCanvas.appendChild(shoot);
+        setTimeout(() => shoot.remove(), 1500);
+    }, 4000);
 })();
+
 function spawnWishStar() {
     const star = document.createElement('div');
-    star.className = 'wish-star'; star.textContent = '⭐';
+    star.className = 'wish-star';
+    star.textContent = '⭐';
     star.style.left = (15 + Math.random()*70) + '%';
     star.style.top = (15 + Math.random()*55) + '%';
-    star.addEventListener('click', (e) => { e.stopPropagation(); tapWishStar(star); });
+    star.addEventListener('click', (e) => {
+        e.stopPropagation();
+        tapWishStar(star);
+    });
     skyCanvas.appendChild(star);
 }
+
 function tapWishStar(star) {
     const rect = skyCanvas.getBoundingClientRect();
     const starRect = star.getBoundingClientRect();
-    pendingStarPos = { x: ((starRect.left - rect.left + starRect.width/2) / rect.width) * 100, y: ((starRect.top - rect.top + starRect.height/2) / rect.height) * 100 };
+    pendingStarPos = {
+        x: ((starRect.left - rect.left + starRect.width/2) / rect.width) * 100,
+        y: ((starRect.top - rect.top + starRect.height/2) / rect.height) * 100
+    };
     star.classList.add('falling');
     setTimeout(() => star.remove(), 1000);
     const wrap = document.getElementById('sky-input-wrap');
     const input = document.getElementById('sky-input');
-    wrap.classList.add('show'); input.value = ''; input.focus();
+    wrap.classList.add('show');
+    input.value = '';
+    input.focus();
     playSfx('tap');
 }
+
 function confirmSkyWish() {
     const input = document.getElementById('sky-input');
     const text = input.value.trim();
     if (!text || !pendingStarPos) return;
     const cStar = document.createElement('div');
-    cStar.className = 'constellation-star'; cStar.textContent = '🌟';
-    cStar.style.left = pendingStarPos.x + '%'; cStar.style.top = pendingStarPos.y + '%';
+    cStar.className = 'constellation-star';
+    cStar.textContent = '🌟';
+    cStar.style.left = pendingStarPos.x + '%';
+    cStar.style.top = pendingStarPos.y + '%';
     skyCanvas.appendChild(cStar);
     const label = document.createElement('div');
-    label.className = 'constellation-label'; label.textContent = text;
-    label.style.left = pendingStarPos.x + '%'; label.style.top = (pendingStarPos.y + 6) + '%';
+    label.className = 'constellation-label';
+    label.textContent = text;
+    label.style.left = pendingStarPos.x + '%';
+    label.style.top = (pendingStarPos.y + 6) + '%';
     skyCanvas.appendChild(label);
+
     skyWishCount++;
-    document.getElementById('sky-counter').textContent = '🌟 ' + skyWishCount + ' harapan tergantung di langit kita';
+    document.getElementById('sky-counter').textContent = `🌟 ${skyWishCount} harapan tergantung di langit kita`;
     document.getElementById('sky-input-wrap').classList.remove('show');
     pendingStarPos = null;
-    burstPetals(15); playSfx('select');
+    burstPetals(15);
+    playSfx('select');
 }
-document.getElementById('sky-input').addEventListener('keydown', (e) => { if (e.key === 'Enter') confirmSkyWish(); });
+
+document.getElementById('sky-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') confirmSkyWish();
+});
+
+// ===== BURST =====
 function burstPetals(count) {
     const c = document.getElementById('burst');
-    const items = ['🌻','🌼','✨','🦋',''];
+    const items = ['🌻','','✨','🦋','💛'];
     for (let i = 0; i < count; i++) {
         setTimeout(() => {
             const p = document.createElement('span');
@@ -1112,6 +1547,8 @@ function burstPetals(count) {
         }, i * 40);
     }
 }
+
+// ===== SPARKLE CURSOR =====
 let spThrottle = 0;
 document.addEventListener('pointermove', e => {
     spThrottle++;
@@ -1119,7 +1556,8 @@ document.addEventListener('pointermove', e => {
     const s = document.createElement('span');
     s.className = 'sparkle';
     s.textContent = ['✨','🌻','💛'][Math.floor(Math.random()*3)];
-    s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px';
+    s.style.left = e.clientX + 'px';
+    s.style.top = e.clientY + 'px';
     document.body.appendChild(s);
     setTimeout(() => s.remove(), 1000);
 });
