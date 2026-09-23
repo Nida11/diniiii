@@ -169,7 +169,7 @@
     .game-sec { padding:70px 20px; background:linear-gradient(180deg,#FDF3E0,var(--cream)); text-align:center; }
     .game-sec .section-title { color:var(--maroon-dark); }
     .game-area { position:relative; width:100%; max-width:500px; height:380px; margin:0 auto; background:linear-gradient(180deg, #FFF8E7 0%, #FBEED5 100%); border-radius:24px; border:3px solid var(--gold); overflow:hidden; box-shadow:0 15px 40px rgba(107,31,42,.15); touch-action:none; user-select:none; -webkit-user-select:none; }
-    .game-area::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='0.04'/></feComponentTransfer></filter><rect width='100' height='100' filter='url(%23n)'/></svg>"); pointer-events:none; opacity:.5; }
+    .game-area::before { content:''; position:absolute; inset:0; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='linear' slope='0.04'/></feComponentTransfer></filter><rect width='100' height='100' filter='url(%23n)'/></svg>"); pointer-events:none; opacity:.5; }
     .game-hud { position:absolute; top:0; left:0; right:0; padding:12px 18px; display:flex; justify-content:space-between; align-items:center; background:rgba(107,31,42,.9); color:var(--sunflower); font-weight:700; font-size:14px; z-index:10; letter-spacing:1px; }
     .game-hud span { display:flex; align-items:center; gap:6px; }
     .game-target { position:absolute; font-size:34px; cursor:pointer; user-select:none; -webkit-user-select:none; touch-action:manipulation; transition:transform .1s; z-index:5; filter:drop-shadow(0 3px 6px rgba(0,0,0,.2)); }
@@ -213,36 +213,32 @@
     .memory-list li { font-size:13px; line-height:1.7; padding:6px 0; border-bottom:1px dashed rgba(255,195,11,.25); color:#f5e9d0; }
     .memory-list li:last-child { border-bottom:none; }
 
-    /* ===== PUZZLE HATI (BARU!) ===== */
-    .puzzle-sec { padding:70px 20px; background:linear-gradient(180deg,#FBEED5,var(--cream)); text-align:center; }
-    .puzzle-sec .section-title { color:var(--maroon-dark); }
-    .puzzle-intro { max-width:460px; margin:0 auto 28px; color:#6b5335; font-size:14px; line-height:1.8; font-style:italic; }
-    .puzzle-board { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; max-width:300px; margin:0 auto; padding:14px; background:linear-gradient(135deg,#FFF9E8,#FFE9A8); border-radius:20px; border:3px solid var(--gold); box-shadow:0 12px 35px rgba(212,160,23,.25); }
-    .puzzle-piece { aspect-ratio:1/1; background:linear-gradient(135deg,var(--maroon),var(--maroon-dark)); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:30px; cursor:pointer; transition:all .4s cubic-bezier(.175,.885,.32,1.275); user-select:none; -webkit-user-select:none; box-shadow:inset 0 0 0 2px rgba(255,195,11,.2); }
-    .puzzle-piece:hover { transform:scale(1.05); }
-    .puzzle-piece.placed { background:linear-gradient(135deg,var(--sunflower),var(--gold)); animation:piecePlace .6s ease; box-shadow:0 4px 15px rgba(255,195,11,.5); }
-    @keyframes piecePlace { 0%{transform:scale(0) rotate(-180deg);} 60%{transform:scale(1.2) rotate(10deg);} 100%{transform:scale(1) rotate(0);} }
-    .puzzle-progress { margin:22px auto 0; font-size:13px; color:var(--maroon); background:#FFF3D6; border:1px dashed var(--gold); width:max-content; padding:8px 18px; border-radius:50px; }
-    .puzzle-final { max-width:460px; margin:25px auto 0; background:linear-gradient(135deg,var(--maroon),var(--maroon-dark)); border-radius:20px; padding:28px 24px; color:var(--cream); opacity:0; transform:translateY(20px); transition:all .8s; display:none; }
-    .puzzle-final.show { display:block; opacity:1; transform:translateY(0); }
-    .puzzle-final .big-heart { font-size:60px; animation:heartbeat 1s ease-in-out infinite; display:inline-block; }
-    .puzzle-final h3 { font-family:'Dancing Script',cursive; font-size:28px; color:var(--sunflower); margin:10px 0; }
-    .puzzle-final p { font-size:14px; line-height:1.9; font-style:italic; }
-
-    /* ===== HEARTBEAT ===== */
-    .heartbeat-sec { padding:80px 20px; background:linear-gradient(135deg,var(--maroon-deep),var(--maroon)); text-align:center; position:relative; overflow:hidden; }
-    .heartbeat-sec .section-title { color:var(--sunflower); }
-    .heartbeat-sec .section-sub { color:rgba(255,248,231,.6); }
-    .heart-visual { font-size:90px; margin:10px 0 25px; display:inline-block; filter:drop-shadow(0 0 25px rgba(255,107,157,.5)); }
-    .heart-visual.beating { animation:heartbeat 0.8s ease-in-out infinite; }
-    @keyframes heartbeat { 0%,100%{transform:scale(1);} 15%{transform:scale(1.25);} 30%{transform:scale(1);} 45%{transform:scale(1.18);} 60%{transform:scale(1);} }
-    .pulse-ring { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:120px; height:120px; border-radius:50%; border:3px solid var(--sunflower); opacity:0; pointer-events:none; }
-    .pulse-ring.active { animation:pulseRing 1.5s ease-out infinite; }
-    @keyframes pulseRing { 0%{transform:translate(-50%,-50%) scale(.8); opacity:.7;} 100%{transform:translate(-50%,-50%) scale(2.5); opacity:0;} }
-    .heartbeat-btn { position:relative; padding:18px 45px; background:linear-gradient(135deg,var(--gold),var(--sunflower)); color:var(--maroon-dark); border:none; border-radius:60px; font-family:'Poppins',sans-serif; font-size:16px; font-weight:700; cursor:pointer; touch-action:none; user-select:none; -webkit-user-select:none; box-shadow:0 8px 30px rgba(212,160,23,.4); transition:transform .2s; }
-    .heartbeat-btn:active { transform:scale(.95); }
-    .heartbeat-msg { max-width:480px; margin:30px auto 0; font-family:'Dancing Script',cursive; font-size:24px; color:var(--sunflower); line-height:1.6; opacity:0; transform:translateY(15px); transition:all 1s ease; min-height:40px; }
-    .heartbeat-msg.show { opacity:1; transform:translateY(0); }
+    /* ===== ALBUM CERITA KITA ===== */
+    .gallery-sec { padding:70px 20px; background:linear-gradient(180deg,#FBEED5,var(--cream)); }
+    .gallery-sec .section-title { color:var(--maroon-dark); }
+    .gallery-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:26px; max-width:820px; margin:0 auto; perspective:1200px; }
+    .polaroid-card { height:340px; cursor:pointer; opacity:0; transform:translateY(30px); transition:opacity .8s ease, transform .8s ease; }
+    .polaroid-card.revealed { opacity:1; transform:rotate(var(--tilt,0deg)); }
+    .pol-inner { position:relative; width:100%; height:100%; transform-style:preserve-3d; transition:transform .8s cubic-bezier(.4,.2,.2,1); }
+    .polaroid-card.flipped .pol-inner { transform:rotateY(180deg); }
+    .pol-front, .pol-back { position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden; border-radius:10px; box-shadow:0 10px 30px rgba(107,31,42,.18); overflow:hidden; display:flex; flex-direction:column; }
+    .pol-front { background:white; padding:12px 12px 8px; }
+    .pol-img-wrap { position:relative; flex:1; background:var(--paper); border-radius:6px; overflow:hidden; }
+    .pol-img-wrap img { width:100%; height:100%; object-fit:cover; display:block; }
+    .pol-fallback { position:absolute; inset:0; display:none; align-items:center; justify-content:center; font-size:56px; background:linear-gradient(135deg,#FFF9E8,#FFE9A8); }
+    .pol-tape { position:absolute; top:-9px; left:50%; transform:translateX(-50%) rotate(-3deg); width:80px; height:22px; background:rgba(212,160,23,.45); z-index:3; border-radius:2px; }
+    .pol-caption { font-family:'Dancing Script',cursive; font-size:20px; color:var(--maroon); text-align:center; padding:8px 4px 0; }
+    .pol-hint { font-size:10px; color:#b09a6a; text-align:center; font-style:italic; padding:2px 0 4px; }
+    .pol-back { transform:rotateY(180deg); background:linear-gradient(135deg,var(--maroon),var(--maroon-dark)); color:var(--cream); padding:24px 20px; align-items:center; justify-content:center; text-align:center; }
+    .pol-msg { font-family:'Playfair Display',serif; font-style:italic; font-size:14px; line-height:1.9; }
+    .pol-sign { margin-top:14px; font-family:'Dancing Script',cursive; font-size:20px; color:var(--sunflower); }
+    .pol-blank { flex:1; border:2px dashed #d4b896; border-radius:6px; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#b09a6a; font-size:12px; font-style:italic; padding:10px; text-align:center; background:#FFFDF8; }
+    .pol-blank span { font-size:40px; margin-bottom:8px; }
+    .gallery-progress { display:block; text-align:center; margin:28px auto 0; font-size:13px; color:var(--maroon); background:#FFF3D6; border:1px dashed var(--gold); width:max-content; padding:8px 18px; border-radius:50px; }
+    .gallery-final { max-width:520px; margin:26px auto 0; background:white; border:2px dashed var(--gold); border-radius:20px; padding:26px 22px; text-align:center; display:none; }
+    .gallery-final.show { display:block; animation:fadeInUp .8s ease both; }
+    .gallery-final p { font-family:'Playfair Display',serif; font-style:italic; font-size:15px; line-height:1.9; color:#4a3520; }
+    .gallery-final .gf-sign { margin-top:12px; font-family:'Dancing Script',cursive; font-size:22px; color:var(--maroon); }
 
     .scratch-sec { padding:70px 20px; background:linear-gradient(180deg,#FBEED5,var(--cream)); }
     .scratch-sec .section-title { color:var(--maroon-dark); }
@@ -264,7 +260,7 @@
     .letter-sign { text-align:right; font-family:'Dancing Script',cursive; font-size:26px; color:var(--maroon); margin-top:20px; opacity:0; transition:opacity 1s ease; }
     .letter-sign.show { opacity:1; }
 
-    /* ===== TIME CAPSULE (BARU!) ===== */
+    /* ===== TIME CAPSULE ===== */
     .capsule-sec { padding:70px 20px; background:linear-gradient(180deg,var(--cream),#FBEED5); text-align:center; }
     .capsule-sec .section-title { color:var(--maroon-dark); }
     .capsule-intro { max-width:480px; margin:0 auto 25px; color:#6b5335; font-size:14px; line-height:1.8; font-style:italic; }
@@ -290,7 +286,7 @@
     .flying-butterfly { position:fixed; font-size:28px; pointer-events:none; z-index:999; animation:flyAway 3s ease-out forwards; }
     @keyframes flyAway { 0%{transform:translateY(0) scale(1) rotate(0); opacity:1;} 100%{transform:translateY(-110vh) translateX(var(--dx)) scale(0.5) rotate(30deg); opacity:0;} }
 
-    /* ===== STAR NIGHT / GRAND FINALE (BARU!) ===== */
+    /* ===== STAR NIGHT / GRAND FINALE ===== */
     .star-sec { padding:70px 20px 90px; background:linear-gradient(180deg,#1a0a2e,#2d1b4e,#1a0a2e); text-align:center; position:relative; overflow:hidden; }
     .star-sec .section-title { color:var(--sunflower); }
     .star-sec .section-sub { color:rgba(255,248,231,.6); }
@@ -309,7 +305,7 @@
     .sky-input { flex:1; padding:12px 16px; border-radius:50px; border:2px solid var(--gold); background:rgba(255,248,231,.95); font-family:'Poppins',sans-serif; font-size:13px; color:var(--maroon-dark); outline:none; }
     .sky-input::placeholder { color:#b09a6a; }
     .sky-send { padding:12px 20px; background:linear-gradient(135deg,var(--gold),var(--sunflower)); color:var(--maroon-dark); border:none; border-radius:50px; font-weight:700; font-size:13px; cursor:pointer; }
-    .sky-counter { margin-top:20px; font-size:13px; color:var(--sunflower); font-family:'Dancing Script',cursive; font-size:20px; }
+    .sky-counter { margin-top:20px; color:var(--sunflower); font-family:'Dancing Script',cursive; font-size:20px; }
     .shooting-star { position:absolute; width:3px; height:3px; background:var(--sunflower); border-radius:50%; box-shadow:0 0 10px var(--sunflower), -20px 0 20px rgba(255,195,11,.5); animation:shoot 1.5s linear forwards; pointer-events:none; }
     @keyframes shoot { 0%{transform:translate(0,0) rotate(-45deg); opacity:1;} 100%{transform:translate(300px,300px) rotate(-45deg); opacity:0;} }
 
@@ -340,7 +336,7 @@
         .place-grid { grid-template-columns:repeat(2,1fr); }
         .game-area { height:340px; }
         .garden-grid { gap:10px; }
-        .puzzle-board { max-width:260px; }
+        .polaroid-card { height:320px; }
         .sky-canvas { height:350px; }
     }
 </style>
@@ -380,7 +376,7 @@
             <h1>Happy Birthday <span class="accent">My Sunflower</span></h1>
             <p class="hero-name">✨ Dini Nurcahyani ✨</p>
             <p class="hero-tagline">"You're My Everything"</p>
-            <div class="hero-flowers">🌻  🌻 🦋 </div>
+            <div class="hero-flowers">🌻 🦋 🌻 🦋 🌻</div>
         </div>
         <div class="scroll-hint">👇🏻</div>
     </section>
@@ -421,7 +417,7 @@
             <button class="chip" onclick="setWish(this,'🧸 Boneka jumbo')">🧸 Boneka jumbo</button>
             <button class="chip" onclick="setWish(this,'🛍️ Shopping day seharian')">🛍️ Shopping day</button>
             <button class="chip" onclick="setWish(this,'🎬 Marathon film + snack favorit')">🎬 Marathon film</button>
-            <button class="chip" onclick="setWish(this,'💆‍♀️ Self-care day (spa/salon)')">💆‍♀️ Self-care day</button>
+            <button class="chip" onclick="setWish(this,'💆♀️ Self-care day (spa/salon)')">💆‍♀️ Self-care day</button>
         </div>
         <input class="wish-input" id="wish-input" placeholder="...atau tulis sendiri APAPUN yang kamu mau ✍">
         <br>
@@ -501,7 +497,7 @@
 
         <div class="trip-summary" id="trip-summary">
             <div class="trip-head">🎫 BANDUNG TRIP TICKET 🎫</div>
-            <p class="trip-line">👩‍❤️ Penumpang: <strong>Dini + Aku</strong></p>
+            <p class="trip-line">👩❤️ Penumpang: <strong>Dini + Aku</strong></p>
             <p class="trip-line">📅 Jadwal: <strong id="sum-weekend">-</strong></p>
             <p class="trip-line">📍 Wishlist kita:</p>
             <ul class="trip-places" id="sum-places"></ul>
@@ -566,20 +562,15 @@
         </div>
     </section>
 
-    <!-- ===== PUZZLE HATI (BARU!) ===== -->
-    <section class="puzzle-sec">
-        <h2 class="section-title">🧩 Puzzle Hati Kita 🧩</h2>
-        <p class="puzzle-intro">
-            Hati aku pernah berkeping-keping... sampai kamu datang dan nyusunnya jadi utuh lagi.
-            <br>Tap tiap kepingnya — bantu aku lengkapi hati ini, sayang. 💘
-        </p>
-        <div class="puzzle-board" id="puzzle-board"></div>
-        <div class="puzzle-progress" id="puzzle-progress">🧩 0 / 9 keping tersusun</div>
-        <div class="puzzle-final" id="puzzle-final">
-            <div class="big-heart">❤️</div>
-            <h3>Hati Kita Udah Utuh Lagi 💞</h3>
-            <p>Setiap keping yang kamu susun... itu bagian dari aku yang kamu lengkapi. Terima kasih udah jadi "rumah" buat hati aku yang pernah berantakan, sayang. 🥺</p>
-            <p style="margin-top:12px; color:var(--sunflower); font-family:'Dancing Script',cursive; font-size:22px;">Tanpa kamu, puzzle ini gak akan pernah lengkap. 🧩💛</p>
+    <!-- ===== ALBUM CERITA KITA ===== -->
+    <section class="gallery-sec">
+        <h2 class="section-title">📖 Album Cerita Kita 📖</h2>
+        <p class="section-sub">Setiap foto nyimpen pesan yang belum pernah aku ucapkan langsung... tap buat buka ✉️</p>
+        <div class="gallery-grid" id="gallery-grid"></div>
+        <span class="gallery-progress" id="gallery-progress">✉️ 0 / 6 pesan terbuka</span>
+        <div class="gallery-final" id="gallery-final">
+            <p>Semua halaman udah terbuka... 📖<br>Tapi tahu gak? Halaman favoritku justru yang masih kosong — besok, bulan depan, tahun depan... semua yang belum terjadi bareng kamu.</p>
+            <div class="gf-sign">Cerita kita belum selesai, sayang 🤍</div>
         </div>
     </section>
 
@@ -605,19 +596,6 @@
         </div>
     </section>
 
-    <!-- HEARTBEAT -->
-    <section class="heartbeat-sec">
-        <h2 class="section-title">💞 Detak Jantung Kita 💞</h2>
-        <p class="section-sub">Tahan tombolnya... dengerin baik-baik 🤍</p>
-        <div style="position:relative; display:inline-block;">
-            <div class="pulse-ring" id="pulse-ring"></div>
-            <div class="heart-visual" id="heart-visual">❤️</div>
-        </div>
-        <br>
-        <button class="heartbeat-btn" id="heartbeat-btn" oncontextmenu="return false;">💓 Tahan buat denger detak jantungku</button>
-        <p class="heartbeat-msg" id="heartbeat-msg"></p>
-    </section>
-
     <!-- LETTER -->
     <section class="letter-sec">
         <h2 class="section-title">💌 Surat Untukmu 💌</h2>
@@ -628,7 +606,7 @@
         </div>
     </section>
 
-    <!-- ===== TIME CAPSULE (BARU!) ===== -->
+    <!-- ===== TIME CAPSULE ===== -->
     <section class="capsule-sec">
         <h2 class="section-title">⏳ Kapsul Waktu ⏳</h2>
         <p class="capsule-intro">
@@ -656,7 +634,7 @@
         <p class="wish-result" id="wish-result">Semua doamu akan terkabul, Aamiin. 🌻</p>
     </section>
 
-    <!-- ===== STAR NIGHT / GRAND FINALE (BARU!) ===== -->
+    <!-- ===== STAR NIGHT / GRAND FINALE ===== -->
     <section class="star-sec">
         <h2 class="section-title">🌙 Malam Bintang: Gantung Harapanmu 🌠</h2>
         <p class="section-sub">Tap bintang yang berkelip → tulis harapanmu → gantung jadi konstelasi kita ✨</p>
@@ -671,7 +649,7 @@
 
     <footer class="footer">
         <p>Dibuat dengan sepenuh hati, khusus untukmu 🤍</p>
-        <div class="flower-row">🌻  🌻 🦋 </div>
+        <div class="flower-row">🌻 🦋  🦋 🌻</div>
     </footer>
 </div>
 
@@ -697,7 +675,7 @@ function bloomAndEnter() {
 // ===== PETALS & BUTTERFLIES =====
 function startPetals() {
     const c = document.getElementById('petals');
-    const items = ['🌻','','✨','🍂'];
+    const items = ['🌻','🌼','✨','🍂'];
     setInterval(() => {
         const p = document.createElement('span');
         p.className = 'petal';
@@ -780,7 +758,7 @@ function completeHug() {
     clearInterval(hugTimer);
     hugDone = true;
     hugBtn.classList.add('done');
-    document.getElementById('hug-label').textContent = 'PELUKAN TERKIRIM! 💌🤗';
+    document.getElementById('hug-label').textContent = 'PELUKAN TERKIRIM! 💌';
     const msg = document.getElementById('hug-msg');
     msg.textContent = 'Bayangin aku lagi meluk kamu erat banget... maaf ya belum bisa langsung 🥺💕';
     msg.classList.add('show');
@@ -818,7 +796,7 @@ function sendWish() {
     const val = document.getElementById('wish-input').value.trim();
     const confirm = document.getElementById('wish-confirm');
     if (!val) {
-        confirm.textContent = 'Isi dulu wish-nya ya sayang 😤✍';
+        confirm.textContent = 'Isi dulu wish-nya ya sayang 😤';
         confirm.classList.add('show');
         return;
     }
@@ -839,7 +817,7 @@ Awas kalau gak diturutin! 😤`;
 // ===== FOOD PICKER =====
 const foods = [
     { emoji:'🥂', title:'Fancy Dinner', desc:'Candle light dinner di tempat yang fancy. Kita makan kayak di film-film orang have 🌹', ticket:'🎟️ VOUCHER: 1x Fancy Dinner untuk 2 orang • Dress code: Cantik maksimal 👗' },
-    { emoji:'🍖', title:'All You Can Eat', desc:'Makan sepuasnya! Gak usah mikirin harga, gak usah diet dulu hari ini. Aku siap lihat kamu happy makan banyak 😋', ticket:'️ VOUCHER: 1x AYCE Session • Rules: Harus kenyang, dilarang nahan-nahan! 🍽️' },
+    { emoji:'🍖', title:'All You Can Eat', desc:'Makan sepuasnya! Gak usah mikirin harga, gak usah diet dulu hari ini. Aku siap lihat kamu happy makan banyak 😋', ticket:'🎟️ VOUCHER: 1x AYCE Session • Rules: Harus kenyang, dilarang nahan-nahan! 🍽️' },
     { emoji:'🦐', title:'Seafood Feast', desc:'Udang bakar, kepiting saus tiram, cumi goreng tepung... Semua seafood favorit kamu siap menanti! 🦀', ticket:'🎟️ VOUCHER: 1x Seafood Feast • Menu: Semua yang kamu mau! 🦞' }
 ];
 let selectedFood = null, selectedTime = 'Dinner';
@@ -1172,98 +1150,55 @@ function revealGarden() {
     }, 600);
 }
 
-// ===== PUZZLE HATI (BARU!) =====
-const puzzlePieces = ['💛','🌻','💞','🦋','❤️','🌻','💕','✨','💛'];
-let placedCount = 0;
-(function initPuzzle() {
-    const board = document.getElementById('puzzle-board');
-    // Shuffle indices for placement order feel
-    const indices = [0,1,2,3,4,5,6,7,8];
-    indices.forEach(i => {
-        const piece = document.createElement('div');
-        piece.className = 'puzzle-piece';
-        piece.dataset.index = i;
-        piece.textContent = '❓';
-        piece.addEventListener('click', () => placePiece(piece, i));
-        board.appendChild(piece);
-    });
+// ===== ALBUM CERITA KITA =====
+var GALLERY = [
+  { src:'images/kenangan-1.png', fb:'\u{1F33B}', tilt:-3, cap:'my sunflower \u{1F33B}', msg:'Kamu kayak matahari buat aku \u2014 bahkan di hari paling mendung sekalipun, kamu tetap alasan aku tersenyum.' },
+  { src:'images/kenangan-2.png', fb:'\u{1F431}', tilt:2, cap:'team meong \u{1F431}', msg:'Kalau nanti kita punya rumah sendiri, aku mau adopsi kucing oren & hitam kayak gini... biar ada yang nyambut kita pulang, selain kamu.' },
+  { src:'images/kenangan-3.png', fb:'\u{1F47D}', tilt:-2, cap:'partner anehku \u{1F92A}', msg:'Kita emang pasangan yang aneh bareng-bareng. Tapi anehnya kamu... yang bikin aku merasa akhirnya punya rumah.' },
+  { src:'images/kenangan-4.png', fb:'\u{1F9F8}', tilt:3, cap:'keluarga kecil kita \u{1F9F8}', msg:'Shinchan, Doraemon, Butterbear \u2014 saksi bisu kalau di duniaku, kamu selalu jadi tokoh utamanya.' },
+  { src:'images/kenangan-5.png', fb:'\u{1F3D4}\uFE0F', tilt:-2, cap:'mimpi kita \u{1F3D4}\uFE0F', msg:'Suatu hari nanti, kita berdiri bareng di tempat ini. Bukan di gambar \u2014 tapi beneran. Aku janji, sayang.' },
+  { src:'', fb:'\u{1F4F8}', tilt:2, cap:'halaman berikutnya...', msg:'Slot ini aku kosongin sengaja... buat foto kita berdua yang asli, yang bakal kita cetak dan tempel bareng nanti. \u{1F4F8}\u{1F90D}' }
+];
+var flippedSet = {};
+(function initGallery() {
+  var grid = document.getElementById('gallery-grid');
+  GALLERY.forEach(function(item, i) {
+    var card = document.createElement('div');
+    card.className = 'polaroid-card';
+    card.style.setProperty('--tilt', item.tilt + 'deg');
+    var imgHtml = item.src
+      ? '<div class="pol-img-wrap"><img src="' + item.src + '" alt="kenangan" onerror="this.style.display=\'none\'; this.nextElementSibling.style.display=\'flex\';"><div class="pol-fallback">' + item.fb + '</div></div>'
+      : '<div class="pol-blank"><span>\u{1F4F8}</span>foto kita berdua yang asli<br>segera, aku janji \u{1F90D}</div>';
+    card.innerHTML =
+      '<div class="pol-inner">' +
+        '<div class="pol-front"><div class="pol-tape"></div>' + imgHtml +
+          '<p class="pol-caption">' + item.cap + '</p>' +
+          '<p class="pol-hint">tap buat baca pesan \u2709\uFE0F</p>' +
+        '</div>' +
+        '<div class="pol-back"><p class="pol-msg">' + item.msg + '</p><span class="pol-sign">\u2014 aku, yang sayang kamu \u{1F49B}</span></div>' +
+      '</div>';
+    card.addEventListener('click', function() { flipCard(card, i); });
+    grid.appendChild(card);
+  });
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(en) { if (en.isIntersecting) { en.target.classList.add('revealed'); obs.unobserve(en.target); } });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.polaroid-card').forEach(function(c) { obs.observe(c); });
 })();
-
-function placePiece(piece, i) {
-    if (piece.classList.contains('placed')) return;
-    piece.classList.add('placed');
-    piece.textContent = puzzlePieces[i];
-    placedCount++;
-    document.getElementById('puzzle-progress').textContent = `🧩 ${placedCount} / 9 keping tersusun`;
-    burstPetals(8);
-    if (placedCount >= 9) {
-        setTimeout(() => {
-            document.getElementById('puzzle-final').classList.add('show');
-            document.getElementById('puzzle-final').scrollIntoView({ behavior:'smooth', block:'center' });
-            burstPetals(50);
-        }, 700);
+function flipCard(card, i) {
+  card.classList.toggle('flipped');
+  if (card.classList.contains('flipped')) { flippedSet[i] = true; } else { delete flippedSet[i]; }
+  var n = Object.keys(flippedSet).length;
+  document.getElementById('gallery-progress').textContent = '\u2709\uFE0F ' + n + ' / ' + GALLERY.length + ' pesan terbuka';
+  if (n >= GALLERY.length) {
+    var fin = document.getElementById('gallery-final');
+    if (!fin.classList.contains('show')) {
+      fin.classList.add('show');
+      burstPetals(50);
+      setTimeout(function() { fin.scrollIntoView({ behavior:'smooth', block:'center' }); }, 400);
     }
+  }
 }
-
-// ===== HEARTBEAT =====
-let heartbeatAudioCtx = null, heartbeatInterval = null;
-const heartBtn = document.getElementById('heartbeat-btn');
-const heartVisual = document.getElementById('heart-visual');
-const pulseRing = document.getElementById('pulse-ring');
-const heartMsg = document.getElementById('heartbeat-msg');
-
-function startHeartbeat(e) {
-    e.preventDefault();
-    if (heartbeatInterval) return;
-    heartVisual.classList.add('beating');
-    pulseRing.classList.add('active');
-    heartMsg.classList.add('show');
-    heartMsg.textContent = '💓 ...dengerin... setiap detaknya bilang namamu, Dini...';
-
-    try {
-        if (!heartbeatAudioCtx) heartbeatAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const playThump = () => {
-            if (!heartbeatInterval) return;
-            const osc = heartbeatAudioCtx.createOscillator();
-            const gain = heartbeatAudioCtx.createGain();
-            osc.connect(gain); gain.connect(heartbeatAudioCtx.destination);
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(70, heartbeatAudioCtx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(40, heartbeatAudioCtx.currentTime + 0.15);
-            gain.gain.setValueAtTime(0.5, heartbeatAudioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, heartbeatAudioCtx.currentTime + 0.2);
-            osc.start(); osc.stop(heartbeatAudioCtx.currentTime + 0.2);
-            setTimeout(() => {
-                if (!heartbeatInterval) return;
-                const o2 = heartbeatAudioCtx.createOscillator();
-                const g2 = heartbeatAudioCtx.createGain();
-                o2.connect(g2); g2.connect(heartbeatAudioCtx.destination);
-                o2.type = 'sine';
-                o2.frequency.setValueAtTime(60, heartbeatAudioCtx.currentTime);
-                o2.frequency.exponentialRampToValueAtTime(35, heartbeatAudioCtx.currentTime + 0.12);
-                g2.gain.setValueAtTime(0.35, heartbeatAudioCtx.currentTime);
-                g2.gain.exponentialRampToValueAtTime(0.01, heartbeatAudioCtx.currentTime + 0.15);
-                o2.start(); o2.stop(heartbeatAudioCtx.currentTime + 0.15);
-            }, 180);
-        };
-        playThump();
-        heartbeatInterval = setInterval(playThump, 800);
-    } catch(err) { console.log('audio err', err); }
-}
-
-function stopHeartbeat() {
-    if (!heartbeatInterval) return;
-    clearInterval(heartbeatInterval);
-    heartbeatInterval = null;
-    heartVisual.classList.remove('beating');
-    pulseRing.classList.remove('active');
-    heartMsg.textContent = 'Itu detak jantungku... dan jujur, dia makin kenceng tiap mikirin kamu 🥺💕';
-}
-
-heartBtn.addEventListener('pointerdown', startHeartbeat);
-heartBtn.addEventListener('pointerup', stopHeartbeat);
-heartBtn.addEventListener('pointerleave', stopHeartbeat);
-heartBtn.addEventListener('pointercancel', stopHeartbeat);
 
 // ===== SCRATCH =====
 function initScratch() {
@@ -1342,7 +1277,7 @@ const letterObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.3 });
 letterObserver.observe(document.querySelector('.letter-sec'));
 
-// ===== TIME CAPSULE (BARU!) =====
+// ===== TIME CAPSULE =====
 function lockCapsule() {
     const text = document.getElementById('capsule-text').value.trim();
     if (!text) {
@@ -1374,10 +1309,10 @@ function releaseButterflies() {
         setTimeout(() => {
             const b = document.createElement('span');
             b.className = 'flying-butterfly';
-            b.textContent = ['🦋','🦋','✨'][i%3];
+            b.textContent = ['🦋','','✨'][i%3];
             b.style.left = (startX + (Math.random()-0.5)*100) + 'px';
             b.style.top = startY + 'px';
-            b.style.setProperty('--dx', ((Math.random()-0.5)*200)) + 'px';
+            b.style.setProperty('--dx', ((Math.random()-0.5)*200) + 'px');
             b.style.animationDuration = (Math.random()*1.5+2) + 's';
             document.body.appendChild(b);
             setTimeout(() => b.remove(), 4000);
@@ -1389,13 +1324,12 @@ function releaseButterflies() {
     }, 800);
 }
 
-// ===== STAR NIGHT / GRAND FINALE (BARU!) =====
+// ===== STAR NIGHT / GRAND FINALE =====
 let skyWishCount = 0;
 let pendingStarPos = null;
 const skyCanvas = document.getElementById('sky-canvas');
 
 (function initSky() {
-    // Background twinkling stars
     for (let i = 0; i < 40; i++) {
         const star = document.createElement('div');
         star.className = 'sky-star';
@@ -1407,12 +1341,10 @@ const skyCanvas = document.getElementById('sky-canvas');
         star.style.color = Math.random() > 0.5 ? '#FFC30B' : '#fff';
         skyCanvas.appendChild(star);
     }
-    // Spawn interactive wish stars periodically
     spawnWishStar();
     setInterval(() => {
         if (document.querySelectorAll('.wish-star').length < 3) spawnWishStar();
     }, 2500);
-    // Occasional shooting star
     setInterval(() => {
         const shoot = document.createElement('div');
         shoot.className = 'shooting-star';
@@ -1445,7 +1377,6 @@ function tapWishStar(star) {
     };
     star.classList.add('falling');
     setTimeout(() => star.remove(), 1000);
-    // Show input
     const wrap = document.getElementById('sky-input-wrap');
     const input = document.getElementById('sky-input');
     wrap.classList.add('show');
@@ -1457,14 +1388,12 @@ function confirmSkyWish() {
     const input = document.getElementById('sky-input');
     const text = input.value.trim();
     if (!text || !pendingStarPos) return;
-    // Place constellation star
     const cStar = document.createElement('div');
     cStar.className = 'constellation-star';
     cStar.textContent = '🌟';
     cStar.style.left = pendingStarPos.x + '%';
     cStar.style.top = pendingStarPos.y + '%';
     skyCanvas.appendChild(cStar);
-    // Label
     const label = document.createElement('div');
     label.className = 'constellation-label';
     label.textContent = text;
@@ -1479,7 +1408,6 @@ function confirmSkyWish() {
     burstPetals(15);
 }
 
-// Allow Enter key in sky input
 document.getElementById('sky-input').addEventListener('keydown', (e) => {
     if (e.key === 'Enter') confirmSkyWish();
 });
@@ -1487,7 +1415,7 @@ document.getElementById('sky-input').addEventListener('keydown', (e) => {
 // ===== BURST =====
 function burstPetals(count) {
     const c = document.getElementById('burst');
-    const items = ['🌻','','✨','','💛'];
+    const items = ['🌻','🌼','✨','🦋',''];
     for (let i = 0; i < count; i++) {
         setTimeout(() => {
             const p = document.createElement('span');
