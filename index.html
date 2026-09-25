@@ -462,7 +462,7 @@
             <div class="reveal-ticket" id="reveal-ticket">🎟️ VOUCHER DINNER</div>
             <button class="deal-btn" id="deal-btn" onclick="dealFood()">Deal! Aku mau ini! 💕</button>
             <button class="wa-btn" id="wa-btn" onclick="sendToWhatsApp()">Kirim ke WhatsApp 💬</button>
-            <p class="deal-msg" id="deal-msg">Yeay! Siap-siap babee, aku jemput! 🌹</p>
+            <p class="deal-msg" id="deal-msg">Yeay! Siap-siap, aku jemput subuhh ! 🌹</p>
         </div>
     </section>
 
@@ -487,10 +487,6 @@
             <div class="place-card" onclick="togglePlace(this,'🦌 Ranca Upas','Kasih makan rusa lucu')"><span class="pl-emoji">🦌</span><div class="pl-name">Ranca Upas</div><div class="pl-desc">Kasih makan rusa lucu</div></div>
             <div class="place-card" onclick="togglePlace(this,'⛰️ Kawah Putih','Putih dreamy banget')"><span class="pl-emoji">⛰️</span><div class="pl-name">Kawah Putih</div><div class="pl-desc">Putih dreamy banget</div></div>
             <div class="place-card" onclick="togglePlace(this,'🌲 Orchid Forest','Hutan pinus + kabut')"><span class="pl-emoji">🌲</span><div class="pl-name">Orchid Forest</div><div class="pl-desc">Hutan pinus + kabut</div></div>
-            <div class="place-card" onclick="togglePlace(this,'🏡 Farmhouse Lembang','Vibes Eropa gitu')"><span class="pl-emoji">🏡</span><div class="pl-name">Farmhouse Lembang</div><div class="pl-desc">Vibes Eropa gitu</div></div>
-            <div class="place-card" onclick="togglePlace(this,'🛶 Floating Market','Jajan di atas danau')"><span class="pl-emoji">🛶</span><div class="pl-name">Floating Market</div><div class="pl-desc">Jajan di atas danau</div></div>
-            <div class="place-card" onclick="togglePlace(this,'🌄 Tebing Keraton','Sunrise + laut awan')"><span class="pl-emoji">🌄</span><div class="pl-name">Tebing Keraton</div><div class="pl-desc">Sunrise + laut awan</div></div>
-            <div class="place-card" onclick="togglePlace(this,'🦒 Lembang Park & Zoo','Main sama binatang')"><span class="pl-emoji">🦒</span><div class="pl-name">Lembang Park & Zoo</div><div class="pl-desc">Main sama binatang</div></div>
             <div class="place-card" onclick="togglePlace(this,'☕ Kopi Dago','Ngobrol santai sore-sore')"><span class="pl-emoji">☕</span><div class="pl-name">Kopi Dago</div><div class="pl-desc">Ngobrol santai sore-sore</div></div>
         </div>
 
@@ -860,7 +856,7 @@ function completeHug() {
     hugBtn.classList.add('done');
     document.getElementById('hug-label').textContent = 'PELUKAN TERKIRIM! 💌';
     const msg = document.getElementById('hug-msg');
-    msg.textContent = 'Bayangin aku lagi meluk kamu erat banget... maaf ya belum bisa langsung 🥺💕';
+    msg.textContent = 'Maaf ya belum bisa langsung 🥺💕';
     msg.classList.add('show');
     burstHearts(30);
     playSfx('success');
@@ -904,7 +900,7 @@ function sendWish() {
     const message =
 `🎁 *OKTOBER WISH* 🎁
 
-Hai Diniii! Aku mau pakai hak Oktober-ku:
+Aku mau pakai hak Oktober-ku:
 
 "Aku mau: ${val}"
 
