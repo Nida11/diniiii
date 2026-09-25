@@ -499,7 +499,7 @@
             <p class="trip-line">📅 Jadwal: <strong id="sum-weekend">-</strong></p>
             <p class="trip-line">📍 Wishlist kita:</p>
             <ul class="trip-places" id="sum-places"></ul>
-            <p class="trip-line" style="font-size:12px; font-style:italic; color:#9a8866;">*tiket ini tidak bisa dibatalkan, dibayar pakai cinta 💛</p>
+            <p class="trip-line" style="font-size:12px; font-style:italic; color:#9a8866;">*enakk amat you din :v 💛</p>
             <button class="wa-btn" onclick="sendTripWA()">Kirim Rencana ke WhatsApp 💬</button>
         </div>
     </section>
@@ -547,16 +547,16 @@
     <section class="garden-sec">
         <h2 class="section-title">🌻 Kebun Sunflower Kita 🌻</h2>
         <p class="garden-intro">
-            Kebun ini masih kosong, Diniii... sama kayak hatiku sebelum ketemu kamu.
-            <br>Siram tiap bijinya — setiap bunga yang mekar adalah satu alasan kenapa aku Diniii kamu. 💛
+            Kebun ini masih kosong, Diniii...
+            <br>Cobaa kamu siram bijinyaaa 💛
         </p>
         <div class="garden-grid" id="garden-grid"></div>
         <div class="garden-progress" id="garden-progress">🌱 0 / 6 bunga mekar</div>
         <div class="garden-final" id="garden-final">
             <h3>Kebun Kita Udah Penuh Bunga 🌻✨</h3>
-            <p>Lihat... semuanya mekar karena kamu yang siram. Sama kayak cintaku — tumbuh subur karena kamu rawat dengan kehadiranmu.</p>
+            <p>Lihat... semuanya mekar karena kamu yang siram. Sama kayak akuw — tumbuh subur karena kamu rawat dengan kehadiranmu.</p>
             <ul class="memory-list" id="memory-list"></ul>
-            <p style="margin-top:15px; color:var(--sunflower); font-family:'Dancing Script',cursive; font-size:22px;">Terima kasih udah bikin hidupku semejak ini, Diniii. 🥺</p>
+            <p style="margin-top:15px; color:var(--sunflower); font-family:'Dancing Script',cursive; font-size:22px;">Terima kasih udah nemenin aku, Diniii. 🥺</p>
         </div>
     </section>
 
@@ -580,14 +580,19 @@
             <div class="scratch-card">
                 <div class="scratch-content">
                     <span class="sc-emoji">🌻</span>
-                    <p>Kamu itu kayak matahari — bikin semua orang di sekitarmu hangat dan bahagia</p>
+                    <p>Semoga kamu selalu ingat,
+ada seseorang yang bersyukur banget
+karena pernah dipertemukan sama kamu.</p>
                 </div>
                 <canvas class="scratch-canvas"></canvas>
             </div>
             <div class="scratch-card">
                 <div class="scratch-content">
                     <span class="sc-emoji">🦋</span>
-                    <p>Cantik, bebas, dan bikin hidupku penuh warna. Itu kamu banget 💕</p>
+                    <p>Kalau suatu hari kamu merasa dunia terlalu berat,
+semoga kamu ingat kalau kamu nggak pernah sendirian.
+Aku akan selalu ada, seperti kamu yang selama ini
+selalu ada buat aku. 💕</p>
                 </div>
                 <canvas class="scratch-canvas"></canvas>
             </div>
@@ -955,21 +960,21 @@ function sendToWhatsApp() {
     const message =
 `🌻 *BIRTHDAY DINNER VOUCHER* 🌻
 
-Hai Diniiiku! 💕
-Voucher dinner susulan kamu udah di-deal ya!
+Haiii! 👋🏻
+Sehubungan dengan bertambahnya usia saya yang semakin cantik ini, dengan ini saya mengajukan voucher dinner ulang tahun kepada kamu 🤭
 
 🍽️ Menu: ${f.title}
 ⏰ Waktu: ${selectedTime}
-📅 Bulan: Oktober 2026 (bulan milikmu!)
-👗 Dresscode: Cantik maksimal
+📅 Bulan: Oktober 2026
+
 
 Voucher ini:
 ✅ Berlaku selamanya
 ✅ Tidak bisa di-refund
 ✅ Tidak bisa dibatalkan
-✅ Dibayar lunas pakai cinta 💝
+✅ Pembayaran diterima dalam bentuk traktiran
 
-Siap-siap ya, aku jemput! 🚗`;
+Siap-siap, aku pilih tempatnya. Kamu tinggal bayar. 🚗`;
     openWA(message);
 }
 
@@ -1197,19 +1202,18 @@ Aku baru main game di website birthday-ku!
 ⭐ Skor: *${gameScore}* poin
 🎖️ Rank: ${rank}
 
-Hadiahnya dapet pesan manis dari kamu lho 💛
 Coba bikin website yang lebih seru lagi dong! 😤`;
     openWA(message);
 }
 
 // ===== SUNFLOWER GARDEN =====
 const memories = [
-    '🌻 Senyum kamu pertama kali yang bikin hariku cerah',
-    '🌻 Cara kamu ketawa sampe mata kamu menyipit',
-    '🌻 Sabar kamu ngadepin aku yang kadang nyebelin',
-    '🌻 Pelukan kamu yang bikin semua lelah hilang',
-    '🌻 Semangat kamu yang nularin aku tiap hari',
-    '🌻 Fakta bahwa kamu mau jadi "rumah" buat aku'
+    '🌻 Aku berharap senyum kamu selalu jadi hal yang pertama kali bikin hari kamu cerah',
+    '🌻 Semoga kamu selalu punya alasan untuk ketawa sampai mata kamu menyipit, seperti biasanya',
+    '🌻 Semoga kesabaran dan hati baik kamu selalu dibalas dengan hal-hal baik juga',
+    '🌻 Semoga setiap kali kamu lelah, selalu ada seseorang yang bisa jadi tempat kamu pulang dan bikin semuanya terasa lebih ringan.',
+    '🌻 Dan yang paling aku harapkan, semoga kamu selalu punya tempat yang terasa seperti rumah—tempat kamu bisa jadi diri sendiri, merasa aman, dan dicintai sepenuhnya.',
+    '🌻 Happy birthday, Dini 🌻',
 ];
 let bloomedCount = 0;
 (function initGarden() {
@@ -1261,11 +1265,10 @@ function revealGarden() {
 
 // ===== ALBUM CERITA KITA =====
 var GALLERY = [
-  { src:'images/kenangan-1.png', fb:'\u{1F33B}', tilt:-3, cap:'my sunflower \u{1F33B}', msg:'Kamu kayak matahari buat aku \u2014 bahkan di hari paling mendung sekalipun, kamu tetap alasan aku tersenyum.' },
-  { src:'images/kenangan-2.png', fb:'\u{1F431}', tilt:2, cap:'team meong \u{1F431}', msg:'Kalau nanti kita punya rumah sendiri, aku mau adopsi kucing oren & hitam kayak gini... biar ada yang nyambut kita pulang, selain kamu.' },
-  { src:'images/kenangan-3.png', fb:'\u{1F47D}', tilt:-2, cap:'partner anehku \u{1F92A}', msg:'Kita emang pasangan yang aneh bareng-bareng. Tapi anehnya kamu... yang bikin aku merasa akhirnya punya rumah.' },
-  { src:'images/kenangan-4.png', fb:'\u{1F9F8}', tilt:3, cap:'keluarga kecil kita \u{1F9F8}', msg:'Shinchan, Doraemon, Butterbear \u2014 saksi bisu kalau di duniaku, kamu selalu jadi tokoh utamanya.' },
-  { src:'images/kenangan-5.png', fb:'\u{1F3D4}\uFE0F', tilt:-2, cap:'mimpi kita \u{1F3D4}\uFE0F', msg:'Suatu hari nanti, kita berdiri bareng di tempat ini. Bukan di gambar \u2014 tapi beneran. Aku janji, Diniii.' },
+  { src:'images/kenangan-2.png', fb:'\u{1F431}', tilt:2, cap:'Olivee & Popeyee \u{1F431}', msg:'Aku kirim olive ma popeyee biar bisa nemenin kamu tiap hari ya walopun bikin kamu pusing juga yaa :v' },
+  { src:'images/kenangan-3.png', fb:'\u{1F47D}', tilt:-2, cap:'Greenman from planet \u{1F92A}', msg:'Hmm sebenernya ini kesukaan aku siwh, tapi kamu suka jugaa jadi gapapaa deh di claim ma kmu :v.' },
+  { src:'images/kenangan-4.png', fb:'\u{1F9F8}', tilt:3, cap:'Dini Fav \u{1F9F8}', msg:'Shinchan, Doraemon, Butterbear \u2014 iyaa iyaa tar aku beliin barang beginian deh.' },
+  { src:'images/kenangan-5.png', fb:'\u{1F3D4}\uFE0F', tilt:-2, cap:'Zurich - Swiss \u{1F3D4}\uFE0F', msg:'Suatu hari nanti, kita berdiri bareng di tempat ini. Bukan di gambar \u2014 tapi beneran. Aku janji, Diniii.' },
   { src:'', fb:'\u{1F4F8}', tilt:2, cap:'halaman berikutnya...', msg:'Slot ini aku kosongin sengaja... buat foto kita berdua yang asli, yang bakal kita cetak dan tempel bareng nanti. \u{1F4F8}\u{1F90D}' }
 ];
 var flippedSet = {};
@@ -1354,14 +1357,14 @@ const letterText = `Hai Diniiiku... 🌻
 
 Selamat ulang tahun ya.
 
-Maaf banget tanggal 27 September aku gak bisa ada di samping kamu. Rasanya berat nulis ini... tapi aku mau kamu tahu: jarak dan tanggal gak ngurangin Diniiiku sedikit pun.
+Maaf banget tanggal 27 September aku belum bisa ada buat ngerayain langsung sama kamu. Tapi bukan berarti ulang tahun kamu cuma dirayain satu hari aja.
 
-Makanya aku bikin kesepakatan sepihak: SELURUH BULAN OKTOBER adalah bulan milikmu. Apapun yang kamu mau, aku yang wujudin. Kemanapun kamu pergi, aku yang temani.
+Jadi, aku putuskan Oktober ini resmi jadi bulan ulang tahun Dini. Mau makan apa, mau jalan ke mana, atau mau ngapain, nanti kita atur bareng.
+Dan iya, ada satu agenda yang udah aku siapin: kita ke Bandung! 🚌
+Kamu tinggal pilih tanggal dan tempatnya. Anggap aja website ini sebagai voucher ulang tahun yang bisa kamu klaim kapan aja selama Oktober.
 
-Dan udah aku siapin kejutan: kita ke Bandung! 🚌 Kamu yang pilih tanggalnya, kamu yang pilih tempatnya. Anggap aja website ini kupon raksasa yang gak punya tanggal kedaluwarsa.
+Happy birthday, Diniii 🌻
 
-Happy birthday, my sunflower. 🌻
-I love you more than words can say.
 
 Tunggu aku di Oktober ya... 🚌`;
 
@@ -1397,12 +1400,12 @@ function lockCapsule() {
     const message =
 `⏳ *KAPSUL WAKTU DINI* ⏳
 
-Hai Diniii, ini kapsul waktu yang Dini tulis buat dirinya 1 tahun lagi:
+Ini kapsul waktu yang aku tulis buat tahun depan. Keep Secret yaaa:
 
 "${text}"
 
-📅 Akan aku kirim balik ke dia: 27 September 2027
-🔒 Aku yang simpan aman ya! Janji! 🤍`;
+📅 Aku bakal baca lagi: 27 September 2027
+🔒 Kamu simpen yang aman yaa! Janji! 🤍`;
     openWA(message);
     document.getElementById('capsule-locked').classList.add('show');
     document.getElementById('capsule-text').disabled = true;
