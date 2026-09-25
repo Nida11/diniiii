@@ -551,8 +551,8 @@
     <section class="garden-sec">
         <h2 class="section-title">🌻 Kebun Sunflower Kita 🌻</h2>
         <p class="garden-intro">
-            Kebun ini masih kosong, sayang... sama kayak hatiku sebelum ketemu kamu.
-            <br>Siram tiap bijinya — setiap bunga yang mekar adalah satu alasan kenapa aku sayang kamu. 💛
+            Kebun ini masih kosong, Diniii... sama kayak hatiku sebelum ketemu kamu.
+            <br>Siram tiap bijinya — setiap bunga yang mekar adalah satu alasan kenapa aku Diniii kamu. 💛
         </p>
         <div class="garden-grid" id="garden-grid"></div>
         <div class="garden-progress" id="garden-progress">🌱 0 / 6 bunga mekar</div>
@@ -560,7 +560,7 @@
             <h3>Kebun Kita Udah Penuh Bunga 🌻✨</h3>
             <p>Lihat... semuanya mekar karena kamu yang siram. Sama kayak cintaku — tumbuh subur karena kamu rawat dengan kehadiranmu.</p>
             <ul class="memory-list" id="memory-list"></ul>
-            <p style="margin-top:15px; color:var(--sunflower); font-family:'Dancing Script',cursive; font-size:22px;">Terima kasih udah bikin hidupku semejak ini, sayang. 🥺</p>
+            <p style="margin-top:15px; color:var(--sunflower); font-family:'Dancing Script',cursive; font-size:22px;">Terima kasih udah bikin hidupku semejak ini, Diniii. 🥺</p>
         </div>
     </section>
 
@@ -572,7 +572,7 @@
         <span class="gallery-progress" id="gallery-progress">✉️ 0 / 6 pesan terbuka</span>
         <div class="gallery-final" id="gallery-final">
             <p>Semua halaman udah terbuka... 📖<br>Tapi tahu gak? Halaman favoritku justru yang masih kosong — besok, bulan depan, tahun depan... semua yang belum terjadi bareng kamu.</p>
-            <div class="gf-sign">Cerita kita belum selesai, sayang 🤍</div>
+            <div class="gf-sign">Cerita kita belum selesai, Diniii 🤍</div>
         </div>
     </section>
 
@@ -622,7 +622,7 @@
             <button class="capsule-lock-btn" onclick="lockCapsule()">🔒 Kunci & Kirim Kapsul ke Aku</button>
             <div class="capsule-locked" id="capsule-locked">
                 <div class="lock-emoji">🔐✨</div>
-                <p>Kapsul waktumu udah terkunci aman sama aku! Janji... 27 September 2027, aku bakal kirim ini balik ke kamu. Baca lagi nanti ya, sayang. 🥺</p>
+                <p>Kapsul waktumu udah terkunci aman sama aku! Janji... 27 September 2027, aku bakal kirim ini balik ke kamu. Baca lagi nanti ya, Diniii. 🥺</p>
                 <div class="capsule-date">📅 Akan dibuka: 27 September 2027</div>
             </div>
         </div>
@@ -817,7 +817,7 @@ updateCountdown();
 const quotes = [
     'Kangen aku gak? Aku kangen banget 🥺',
     'Cantik banget sih kamu hari ini 😍',
-    'Sabar ya sayang, Oktober aku datang! 🚌',
+    'Sabar ya Diniii, Oktober aku datang! 🚌',
     'Jangan lupa makan & senyum hari ini 🌻',
     'Nanti di Bandung kita foto sebanyak-banyaknya ya! 📸',
     'Kamu alasan aku semangat tiap hari 💛',
@@ -897,14 +897,14 @@ function sendWish() {
     const val = document.getElementById('wish-input').value.trim();
     const confirm = document.getElementById('wish-confirm');
     if (!val) {
-        confirm.textContent = 'Isi dulu wish-nya ya sayang 😤';
+        confirm.textContent = 'Isi dulu wish-nya ya Diniii 😤';
         confirm.classList.add('show');
         return;
     }
     const message =
 `🎁 *OKTOBER WISH* 🎁
 
-Hai sayang! Aku mau pakai hak Oktober-ku:
+Hai Diniii! Aku mau pakai hak Oktober-ku:
 
 "Aku mau: ${val}"
 
@@ -959,7 +959,7 @@ function sendToWhatsApp() {
     const message =
 `🌻 *BIRTHDAY DINNER VOUCHER* 🌻
 
-Hai sayangku! 💕
+Hai Diniiiku! 💕
 Voucher dinner susulan kamu udah di-deal ya!
 
 🍽️ Menu: ${f.title}
@@ -1010,7 +1010,7 @@ function showTripWarn(text) {
     setTimeout(() => w.classList.remove('show'), 2500);
 }
 function lockTrip() {
-    if (!selectedWeekend) { showTripWarn('Pilih weekend-nya dulu ya sayang 📅'); return; }
+    if (!selectedWeekend) { showTripWarn('Pilih weekend-nya dulu ya Diniii 📅'); return; }
     if (selectedPlaces.length === 0) { showTripWarn('Pilih minimal 1 tempat dong 📍'); return; }
     document.getElementById('sum-weekend').textContent = selectedWeekend;
     const ul = document.getElementById('sum-places');
@@ -1030,7 +1030,7 @@ function sendTripWA() {
     const message =
 `🚌 *BANDUNG TRIP — LOCKED!* 🚌
 
-Sayang, aku udah pilih jadwal kita:
+Diniii, aku udah pilih jadwal kita:
 
 📅 Weekend: ${selectedWeekend}
 📍 Wishlist tempat kita:
@@ -1182,9 +1182,9 @@ function endGame() {
     document.getElementById('final-score').textContent = gameScore;
     let msg = '';
     if (gameScore >= 150) msg = 'GILA KAMU JAGO BANGET! 🏆 Pasti karena kamu sering ngejar kupu-kupu di taman ya? 😍';
-    else if (gameScore >= 100) msg = 'WOW keren banget sayang! 🌟 Refleks kamu cepet banget, kayak waktu kamu nyuri hati aku 💘';
+    else if (gameScore >= 100) msg = 'WOW keren banget Diniii! 🌟 Refleks kamu cepet banget, kayak waktu kamu nyuri hati aku 💘';
     else if (gameScore >= 50) msg = 'Lumayan juga nih! 😊 Tapi yang penting kamu seneng mainnya kan?';
-    else msg = 'Hehe gapapa, yang penting kamu ketawa pas main 🥰 Aku tetep sayang kok!';
+    else msg = 'Hehe gapapa, yang penting kamu ketawa pas main 🥰 Aku tetep Diniii kok!';
     document.getElementById('game-message').textContent = msg;
     document.getElementById('game-end').classList.remove('hidden');
     burstPetals(40);
@@ -1269,7 +1269,7 @@ var GALLERY = [
   { src:'images/kenangan-2.png', fb:'\u{1F431}', tilt:2, cap:'team meong \u{1F431}', msg:'Kalau nanti kita punya rumah sendiri, aku mau adopsi kucing oren & hitam kayak gini... biar ada yang nyambut kita pulang, selain kamu.' },
   { src:'images/kenangan-3.png', fb:'\u{1F47D}', tilt:-2, cap:'partner anehku \u{1F92A}', msg:'Kita emang pasangan yang aneh bareng-bareng. Tapi anehnya kamu... yang bikin aku merasa akhirnya punya rumah.' },
   { src:'images/kenangan-4.png', fb:'\u{1F9F8}', tilt:3, cap:'keluarga kecil kita \u{1F9F8}', msg:'Shinchan, Doraemon, Butterbear \u2014 saksi bisu kalau di duniaku, kamu selalu jadi tokoh utamanya.' },
-  { src:'images/kenangan-5.png', fb:'\u{1F3D4}\uFE0F', tilt:-2, cap:'mimpi kita \u{1F3D4}\uFE0F', msg:'Suatu hari nanti, kita berdiri bareng di tempat ini. Bukan di gambar \u2014 tapi beneran. Aku janji, sayang.' },
+  { src:'images/kenangan-5.png', fb:'\u{1F3D4}\uFE0F', tilt:-2, cap:'mimpi kita \u{1F3D4}\uFE0F', msg:'Suatu hari nanti, kita berdiri bareng di tempat ini. Bukan di gambar \u2014 tapi beneran. Aku janji, Diniii.' },
   { src:'', fb:'\u{1F4F8}', tilt:2, cap:'halaman berikutnya...', msg:'Slot ini aku kosongin sengaja... buat foto kita berdua yang asli, yang bakal kita cetak dan tempel bareng nanti. \u{1F4F8}\u{1F90D}' }
 ];
 var flippedSet = {};
@@ -1288,7 +1288,7 @@ var flippedSet = {};
           '<p class="pol-caption">' + item.cap + '</p>' +
           '<p class="pol-hint">tap buat baca pesan \u2709\uFE0F</p>' +
         '</div>' +
-        '<div class="pol-back"><p class="pol-msg">' + item.msg + '</p><span class="pol-sign">\u2014 aku, yang sayang kamu \u{1F49B}</span></div>' +
+        '<div class="pol-back"><p class="pol-msg">' + item.msg + '</p><span class="pol-sign">\u2014 aku, yang Diniii kamu \u{1F49B}</span></div>' +
       '</div>';
     card.addEventListener('click', function() { flipCard(card, i); });
     grid.appendChild(card);
@@ -1354,11 +1354,11 @@ function initScratch() {
 initScratch();
 
 // ===== TYPEWRITER LETTER =====
-const letterText = `Hai sayangku... 🌻
+const letterText = `Hai Diniiiku... 🌻
 
 Selamat ulang tahun ya.
 
-Maaf banget tanggal 27 September aku gak bisa ada di samping kamu. Rasanya berat nulis ini... tapi aku mau kamu tahu: jarak dan tanggal gak ngurangin sayangku sedikit pun.
+Maaf banget tanggal 27 September aku gak bisa ada di samping kamu. Rasanya berat nulis ini... tapi aku mau kamu tahu: jarak dan tanggal gak ngurangin Diniiiku sedikit pun.
 
 Makanya aku bikin kesepakatan sepihak: SELURUH BULAN OKTOBER adalah bulan milikmu. Apapun yang kamu mau, aku yang wujudin. Kemanapun kamu pergi, aku yang temani.
 
@@ -1395,13 +1395,13 @@ letterObserver.observe(document.querySelector('.letter-sec'));
 function lockCapsule() {
     const text = document.getElementById('capsule-text').value.trim();
     if (!text) {
-        alert('Tulis dulu surat buat Dini masa depannya ya sayang ✍');
+        alert('Tulis dulu surat buat Dini masa depannya ya Diniii ✍');
         return;
     }
     const message =
 `⏳ *KAPSUL WAKTU DINI* ⏳
 
-Hai sayang, ini kapsul waktu yang Dini tulis buat dirinya 1 tahun lagi:
+Hai Diniii, ini kapsul waktu yang Dini tulis buat dirinya 1 tahun lagi:
 
 "${text}"
 
